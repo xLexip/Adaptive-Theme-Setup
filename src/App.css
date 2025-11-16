@@ -1,42 +1,127 @@
 #root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
+  width: 100%;
+}
+
+.app-shell {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 48px 16px 64px;
+  background: radial-gradient(circle at top, #fdfcff, #f0f2f6);
+  color: #1d1b20;
+}
+
+.app-header {
   text-align: center;
+  max-width: 720px;
+  margin-bottom: 32px;
 }
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
+.app-header h1 {
+  margin: 0 0 8px;
+  font-size: clamp(2rem, 4vw, 2.8rem);
+  font-weight: 600;
 }
 
-@keyframes logo-spin {
+.app-header p {
+  margin: 0;
+  color: #49454f;
+  font-size: 1.1rem;
+}
+
+.app-content {
+  width: 100%;
+  max-width: 760px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.step-card {
+  width: 100%;
+  border-radius: 28px;
+  padding: 24px 28px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  background: var(--app-surface);
+  box-shadow: 0 24px 60px rgba(43, 39, 68, 0.15);
+}
+
+.preparation-list {
+  padding-left: 20px;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  color: #4a4458;
+}
+
+.preparation-list strong {
+  color: #1d192b;
+}
+
+.command-details code,
+.command-output,
+code {
+  display: inline-flex;
+  width: 100%;
+  margin-top: 12px;
+  padding: 12px 16px;
+  border-radius: 14px;
+  background: #f4f0fb;
+  color: #4a4458;
+  font-size: 0.95rem;
+  overflow-x: auto;
+}
+
+.command-output {
+  background: rgba(98, 91, 113, 0.08);
+}
+
+.progress-line {
+  width: 100%;
+  margin-top: 16px;
+}
+
+.unsupported-browser-card {
+  display: block;
+  padding: 32px;
+  border-radius: 28px;
+  background: var(--app-surface);
+  box-shadow: 0 24px 60px rgba(43, 39, 68, 0.12);
+}
+
+.card-actions {
+  margin-top: 24px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+@keyframes shell-fade {
   from {
-    transform: rotate(0deg);
+    opacity: 0;
+    transform: translateY(16px);
   }
   to {
-    transform: rotate(360deg);
+    opacity: 1;
+    transform: translateY(0);
   }
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
+@media (max-width: 720px) {
+  .app-shell {
+    padding: 32px 16px 48px;
   }
-}
 
-.card {
-  padding: 2em;
-}
+  .unsupported-browser-card,
+  .step-card {
+    padding: 24px;
+  }
 
-.read-the-docs {
-  color: #888;
+  .app-header h1 {
+    font-size: 1.9rem;
+  }
 }

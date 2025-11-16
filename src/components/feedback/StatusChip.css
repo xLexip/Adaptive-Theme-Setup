@@ -1,0 +1,29 @@
+.status-chip {
+  display: inline-flex;
+  align-items: center;
+  padding: 4px 10px;
+  border-radius: 999px;
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+.status-chip--neutral {
+  background: rgba(98, 91, 113, 0.12);
+  color: #4a4458;
+}
+
+.status-chip--success {
+  background: rgba(36, 138, 61, 0.12);
+  color: #1f6f33;
+}
+
+.status-chip--warning {
+  background: rgba(255, 181, 71, 0.2);
+  color: #8c5000;
+}
+
+.status-chip--error {
+  background: rgba(217, 45, 32, 0.12);
+  color: #b3261e;
+}
+

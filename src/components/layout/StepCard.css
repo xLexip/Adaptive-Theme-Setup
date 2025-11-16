@@ -1,0 +1,58 @@
+.step-card {
+  width: 100%;
+  display: block;
+}
+
+.step-card__inner {
+  padding: 24px 28px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.step-card__header {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.step-card__heading {
+  flex: 1;
+}
+
+.step-card__heading h2 {
+  margin: 0 0 4px;
+}
+
+.step-card__number {
+  display: inline-flex;
+  height: 44px;
+  width: 44px;
+  align-items: center;
+  justify-content: center;
+  background: var(--app-primary);
+  color: var(--app-on-primary);
+  border-radius: 50%;
+  font-weight: 600;
+}
+
+.step-card__body {
+  color: #4a4458;
+}
+
+.step-card__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+@media (max-width: 720px) {
+  .step-card__inner {
+    padding: 20px;
+  }
+
+  .step-card__header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}

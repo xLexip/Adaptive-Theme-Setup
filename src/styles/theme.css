@@ -1,0 +1,36 @@
+:root {
+  --app-surface: #fdfcff;
+  --app-surface-variant: #e8e0f0;
+  --app-outline: #cac4d0;
+  --app-primary: #6750a4;
+  --app-on-primary: #ffffff;
+  --app-secondary: #625b71;
+  --app-on-surface: #1d1b20;
+}
+
+body {
+  background: radial-gradient(circle at top, #fdfcff, #f4f3fa);
+}
+
+.card-container {
+  background: var(--app-surface);
+  border-radius: 28px;
+  padding: 32px;
+  box-shadow: 0 24px 60px rgba(43, 39, 68, 0.15);
+}
+
+.fade-in {
+  animation: fade-in 250ms ease-out;
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
