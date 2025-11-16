@@ -18,7 +18,7 @@ export const usePermissionGrant = (adb?: Adb) => {
     if (!adb) {
       setter({
         status: CommandExecutionStatus.ERROR,
-        message: 'Kein Gerät verbunden.',
+        message: 'No device connected.',
       })
       return
     }
@@ -30,7 +30,7 @@ export const usePermissionGrant = (adb?: Adb) => {
     } catch (error) {
       setter({
         status: CommandExecutionStatus.ERROR,
-        message: error instanceof Error ? error.message : 'Befehl fehlgeschlagen.',
+        message: error instanceof Error ? error.message : 'Command failed.',
       })
     }
   }, [adb])
@@ -50,4 +50,3 @@ export const usePermissionGrant = (adb?: Adb) => {
     resetStatusState,
   }
 }
-

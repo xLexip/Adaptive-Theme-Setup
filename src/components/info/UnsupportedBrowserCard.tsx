@@ -1,12 +1,12 @@
 export const UnsupportedBrowserCard = () => (
   <md-filled-card className="unsupported-browser-card">
-    <h2>Browser wird nicht unterstützt</h2>
+    <h2>Browser not supported</h2>
     <p>
-      WebUSB funktioniert nur in aktuellen Chromium-basierten Desktop-Browsern wie Chrome, Edge oder Brave.
-      Bitte öffne die Seite dort und versuche es erneut.
+      WebUSB only works in modern Chromium-based desktop browsers such as Chrome, Edge, or Brave.
+      Please open this page there and try again.
     </p>
     <p>
-      Tipp: Auf Android-Geräten funktioniert WebUSB leider nicht. Verwende einen Computer, um die Berechtigung zu erteilen.
+      Tip: WebUSB is not available on Android browsers. Use a computer to grant the permission.
     </p>
   </md-filled-card>
 )

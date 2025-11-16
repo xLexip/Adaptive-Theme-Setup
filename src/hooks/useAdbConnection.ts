@@ -11,7 +11,7 @@ export const useAdbConnection = () => {
       ? { state: AdbConnectionState.DISCONNECTED }
       : {
           state: AdbConnectionState.ERROR,
-          error: 'WebUSB wird nicht unterstützt. Öffne die Seite in Chrome, Edge oder Brave am Desktop.',
+          error: 'WebUSB is not supported. Open this page in Chrome, Edge, or Brave on desktop.',
         },
   )
 
@@ -19,7 +19,7 @@ export const useAdbConnection = () => {
     if (!hasWebUsbSupport()) {
       setContext({
         state: AdbConnectionState.ERROR,
-        error: 'WebUSB wird nicht unterstützt. Bitte nutze einen Chromium-Desktop-Browser.',
+        error: 'WebUSB is not supported. Please use a Chromium-based desktop browser.',
       })
       return
     }
@@ -46,7 +46,7 @@ export const useAdbConnection = () => {
     } catch (error) {
       setContext({
         state: AdbConnectionState.ERROR,
-        error: error instanceof Error ? error.message : 'Unbekannter Fehler beim Verbinden.',
+        error: error instanceof Error ? error.message : 'Unknown error while connecting.',
       })
     }
   }, [])

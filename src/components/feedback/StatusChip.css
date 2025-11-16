@@ -8,22 +8,21 @@
 }
 
 .status-chip--neutral {
-  background: rgba(98, 91, 113, 0.12);
-  color: #4a4458;
+  background: color-mix(in srgb, var(--md-sys-color-surface-variant) 50%, transparent);
+  color: var(--md-sys-color-on-surface-variant);
 }
 
 .status-chip--success {
-  background: rgba(36, 138, 61, 0.12);
-  color: #1f6f33;
+  background: color-mix(in srgb, var(--md-sys-color-primary) 20%, transparent);
+  color: var(--md-sys-color-primary);
 }
 
 .status-chip--warning {
-  background: rgba(255, 181, 71, 0.2);
-  color: #8c5000;
+  background: color-mix(in srgb, var(--md-sys-color-tertiary) 25%, transparent);
+  color: var(--md-sys-color-tertiary);
 }
 
 .status-chip--error {
-  background: rgba(217, 45, 32, 0.12);
-  color: #b3261e;
+  background: color-mix(in srgb, var(--md-sys-color-error) 25%, transparent);
+  color: var(--md-sys-color-error);
 }
-

@@ -2,13 +2,13 @@ import type { ReactNode } from 'react'
 
 const items: ReactNode[] = [
   <li key="dev-options">
-    <strong>Entwickleroptionen aktivieren:</strong> Öffne Einstellungen → Über das Telefon → tippe 7× auf die Build-Nummer.
+    <strong>Enable developer options:</strong> Open Settings → About phone → tap Build number seven times.
   </li>,
   <li key="usb-debugging">
-    <strong>USB-Debugging einschalten:</strong> Einstellungen → System → Entwickleroptionen → USB-Debugging aktivieren.
+    <strong>Turn on USB debugging:</strong> Settings → System → Developer options → enable USB debugging.
   </li>,
   <li key="trust">
-    Bestätige später den ADB-Freigabe-Dialog auf dem Gerät. Das Gerät merkt sich die Freigabe dauerhaft.
+    Confirm the ADB authorization dialog when it appears on your device. The device remembers the approval.
   </li>,
 ]
 
@@ -17,4 +17,3 @@ export const PreparationStep = () => (
     {items}
   </ul>
 )
-

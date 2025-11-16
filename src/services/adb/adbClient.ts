@@ -16,12 +16,12 @@ export class AdbClient {
 
   async requestDevice(): Promise<void> {
     if (!manager) {
-      throw new Error('WebUSB wird von diesem Browser nicht unterstützt.')
+      throw new Error('WebUSB is not supported by this browser.')
     }
 
     const device = await manager.requestDevice()
     if (!device) {
-      throw new Error('Es wurde kein Gerät ausgewählt.')
+      throw new Error('No device selected.')
     }
 
     const connection = await device.connect()
@@ -44,7 +44,7 @@ export class AdbClient {
 
   private assertConnected(): Adb {
     if (!this.#adb) {
-      throw new Error('Kein Gerät verbunden. Bitte verbinde zuerst ein Gerät.')
+      throw new Error('No device connected. Please connect a device first.')
     }
     return this.#adb
   }

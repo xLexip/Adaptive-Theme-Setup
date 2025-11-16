@@ -1,130 +1,92 @@
-# Adaptive Theme – Permission Helper
+# Adaptive Theme Permission Helper
 
-Eine Web-App, die Nutzer:innen hilft, der Android-App **Adaptive Theme** (`dev.lexip.hecate`) die Berechtigung `android.permission.WRITE_SECURE_SETTINGS` zu erteilen – ohne lokale ADB-Installation.
+A focused single-page web application that grants the Android app **Adaptive Theme** (`dev.lexip.hecate`) the permission `android.permission.WRITE_SECURE_SETTINGS` directly over WebUSB—no local ADB installation required.
 
 ## ✨ Features
+- **WebUSB ADB bridge** – leverage Tango ADB entirely in the browser
+- **Material 3 UI** – system-aware light/dark color schemes, typography, density
+- **Guided workflow** – preparation, connection, permission, and info steps
+- **Completely local** – nothing leaves your browser, no analytics, no backend
+- **TypeScript-first** – strict types, modular hooks/services, clean architecture
 
-- **WebUSB-basierte ADB-Verbindung** – keine Desktop-Software nötig
-- **Material 3 Design** – moderne, barrierefreie Benutzeroberfläche
-- **Schritt-für-Schritt-Anleitung** – vom Developer Mode bis zur Permission
-- **Komplett lokal** – keine Server-Kommunikation, alles im Browser
-- **TypeScript + React** – typsicher und wartbar
-
-## 🚀 Voraussetzungen
+## 🚀 Requirements
 
 ### Browser
-- **Chrome**, **Edge** oder **Brave** (Desktop-Version)
-- WebUSB-Unterstützung erforderlich (nicht auf mobilen Geräten)
+- Chromium-based desktop browser with WebUSB: Chrome, Edge, Brave
+- Secure context (HTTPS) for WebUSB
 
-### Android-Gerät
-- **Developer Options** aktiviert
-- **USB-Debugging** eingeschaltet
-- USB-Kabel zur Verbindung mit dem Computer
+### Android device
+- Developer options enabled
+- USB debugging enabled
+- USB cable to connect to the computer
 
-## 📖 Verwendung
+## 📖 Usage
 
-1. **Developer Options aktivieren**
-   - Gehe zu Einstellungen → Über das Telefon
-   - Tippe 7× auf die Build-Nummer
-
-2. **USB-Debugging aktivieren**
-   - Gehe zu Einstellungen → System → Entwickleroptionen
-   - Aktiviere „USB-Debugging"
-
-3. **Gerät anschließen**
-   - Verbinde dein Android-Gerät per USB
-   - Klicke auf „Gerät verbinden" in der Web-App
-   - Wähle dein Gerät im Browser-Dialog aus
-   - Bestätige die ADB-Autorisierung auf dem Gerät
-
-4. **Berechtigung erteilen**
-   - Klicke auf „Berechtigung gewähren"
-   - Die App führt folgenden Befehl aus:
+1. **Enable developer options**
+   - Settings → About phone → tap Build number 7 times
+2. **Enable USB debugging**
+   - Settings → System → Developer options → toggle USB debugging
+3. **Connect device**
+   - Plug the device in via USB
+   - Click “Connect device” in the web app and select the device in the WebUSB picker
+   - Approve the ADB authorization dialog on the Android device
+4. **Grant the permission**
+   - Click “Grant WRITE_SECURE_SETTINGS”
+   - The following command is executed on the device:
      ```bash
      pm grant dev.lexip.hecate android.permission.WRITE_SECURE_SETTINGS
      ```
+5. **Check status (optional)**
+   - Click “Check status” to confirm via `dumpsys package dev.lexip.hecate`
 
-## 🛠️ Entwicklung
+## 🧱 Project Layout
+```
+src/
+├── components/
+│   ├── layout/      # StepCard layout wrapper
+│   ├── steps/       # Preparation, Connection, Permission steps
+│   ├── info/        # CommandDetails, UnsupportedBrowserCard
+│   └── feedback/    # StatusChip and helpers
+├── hooks/           # useAdbConnection, usePermissionGrant
+├── services/adb/    # adbClient, credentialStore, error helpers
+├── styles/          # Material tokens, global theme
+├── constants/       # ADB command strings
+├── types/           # Typed enums/interfaces
+└── utils/           # Base64 helpers and shared utilities
+```
 
-### Installation
+## 🛠 Development
 
+Install dependencies:
 ```bash
 npm install
 ```
 
-### Development Server
-
+Run dev server:
 ```bash
 npm run dev
 ```
 
-Die App läuft unter `http://localhost:5173`
-
-### Build
-
+Build for production:
 ```bash
 npm run build
 ```
 
-### Linting
+## 🔒 Security & Privacy
+- Runs entirely in the browser, no servers involved
+- ADB credentials stored locally in `localStorage`
+- ADB authorization can be revoked on the device at any time
+- Open-source code for full transparency
 
-```bash
-npm run lint
-```
+## 🌗 Accessibility & Theming
+- Auto-detects `prefers-color-scheme` for light/dark mode via Material 3 tokens
+- Uses `styles/light.css` and `styles/dark.css` to translate Material variables into CSS custom properties
+- Surface containers provide elevation cues instead of drop shadows
 
-## 🏗️ Architektur
+## 🤝 Contributing
+- Conventional Commits for commit messages
+- Ensure TypeScript and build steps pass: `npm run build`
+- Pull requests welcome for new features, improvements, or documentation
 
-```
-src/
-├── components/
-│   ├── layout/        # StepCard, Layout-Komponenten
-│   ├── steps/         # PreparationStep, ConnectionStep, GrantPermissionStep
-│   ├── feedback/      # StatusChip, ProgressIndicator
-│   └── info/          # CommandDetails, UnsupportedBrowserCard
-├── hooks/
-│   ├── useAdbConnection.ts      # Device-Verbindung und State
-│   └── usePermissionGrant.ts    # Shell-Befehle ausführen
-├── services/
-│   └── adb/
-│       ├── adbClient.ts         # WebUSB/ADB-Integration
-│       ├── credentialStore.ts   # RSA-Key-Management
-│       └── errors.ts            # Fehlerbehandlung
-├── types/              # TypeScript-Definitionen
-├── constants/          # ADB-Befehle
-└── utils/              # Base64-Encoder etc.
-```
-
-## 📦 Tech Stack
-
-- **React 19** – UI-Framework
-- **TypeScript** – Typsicherheit
-- **Vite** – Build-Tool
-- **Material Web** – Material 3 Web Components
-- **@yume-chan/adb** – ADB-Protokoll-Implementierung
-- **@yume-chan/adb-daemon-webusb** – WebUSB-Transport
-
-## 🔒 Sicherheit & Datenschutz
-
-- **Keine Server-Kommunikation** – alles läuft lokal im Browser
-- **Kein Tracking** – keine Analytics, keine Cookies
-- **Open Source** – Code ist einsehbar und prüfbar
-- **RSA-Keys im LocalStorage** – persistiert für wiederholte Verbindungen
-- **ADB-Autorisierung widerrufbar** – jederzeit am Gerät deaktivierbar
-
-## 🤝 Beitragen
-
-Pull Requests und Issues sind willkommen! Bitte beachte:
-
-- Nutze **Conventional Commits** für Commit-Messages
-- Teste deine Änderungen lokal
-- Halte den Code TypeScript-konform
-
-## 📄 Lizenz
-
-Dieses Projekt ist Open Source. Lizenzdetails folgen.
-
-## 🙏 Danksagungen
-
-- [Tango (ya-webadb)](https://github.com/yume-chan/ya-webadb) – ADB-Implementierung
-- [Material Web](https://github.com/material-components/material-web) – UI-Komponenten
-
+## 📄 License
+Open-source license forthcoming (see repository for updates).

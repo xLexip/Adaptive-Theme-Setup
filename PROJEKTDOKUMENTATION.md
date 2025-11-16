@@ -1,192 +1,147 @@
-# Adaptive Theme Permission Helper – Projektdokumentation
+# Adaptive Theme Permission Helper – Project Documentation
 
-## Projektzusammenfassung
+## Project Summary
 
-Eine moderne Single-Page-Web-App, die Nutzer:innen ermöglicht, der Android-App "Adaptive Theme" (dev.lexip.hecate) die Berechtigung `android.permission.WRITE_SECURE_SETTINGS` zu erteilen – komplett über WebUSB, ohne lokale ADB-Installation.
+A modern single-page web app that lets users grant the Android app “Adaptive Theme” (`dev.lexip.hecate`) the `android.permission.WRITE_SECURE_SETTINGS` permission entirely via WebUSB—no local ADB installation required.
 
-## Technische Umsetzung
+## Technical Implementation
 
 ### Tech Stack
-- **React 19** mit TypeScript (strikte Typisierung)
-- **Vite** als Build-Tool
-- **Material Web (@material/web)** für Material 3 UI-Komponenten
-- **Tango ADB (@yume-chan/adb)** für ADB-Protokoll-Implementierung
-- **WebUSB** über @yume-chan/adb-daemon-webusb
+- **React 19** with TypeScript (strict typing)
+- **Vite** for bundling
+- **Material Web (@material/web)** for Material 3 components
+- **Tango ADB (@yume-chan/adb)** for the ADB protocol implementation
+- **WebUSB** via @yume-chan/adb-daemon-webusb
 
-### Architektur
+### Architecture
 
-#### Projektstruktur
+#### Project Structure
 ```
 src/
 ├── components/
-│   ├── layout/
-│   │   ├── StepCard.tsx          # Wiederverwendbare nummerierte Card
-│   │   └── StepCard.css
-│   ├── steps/
-│   │   ├── PreparationStep.tsx   # Schritt 1: Anleitung
-│   │   ├── ConnectionStep.tsx    # Schritt 2: Gerät verbinden
-│   │   └── GrantPermissionStep.tsx # Schritt 3: Berechtigung erteilen
-│   ├── feedback/
-│   │   ├── StatusChip.tsx        # Status-Badges (success/error/warning)
-│   │   └── StatusChip.css
-│   └── info/
-│       ├── CommandDetails.tsx    # Zeigt ADB-Befehl an
-│       └── UnsupportedBrowserCard.tsx # Guard für nicht unterstützte Browser
-├── hooks/
-│   ├── useAdbConnection.ts       # Connection State Management
-│   └── usePermissionGrant.ts     # Shell Command Execution
-├── services/adb/
-│   ├── adbClient.ts              # WebUSB/ADB-Client
-│   ├── credentialStore.ts        # RSA-Key-Verwaltung (localStorage)
-│   └── errors.ts                 # Fehlerbehandlung
-├── types/adb.ts                  # TypeScript-Typen
-├── constants/commands.ts         # ADB-Befehle
-├── utils/base64.ts               # Base64-Encoder/Decoder
-├── styles/theme.css              # Material 3 Design Tokens
-└── material-web.d.ts             # TypeScript-Deklarationen für Material Web
+│   ├── layout/        # StepCard layout wrapper
+│   ├── steps/         # Preparation, Connection, Grant steps
+│   ├── feedback/      # StatusChip and helpers
+│   └── info/          # CommandDetails, UnsupportedBrowserCard
+├── hooks/             # useAdbConnection, usePermissionGrant
+├── services/adb/      # ADB client, credential store, errors
+├── types/             # TypeScript enums/interfaces
+├── constants/         # ADB commands
+├── utils/             # Shared helpers (e.g., base64)
+├── styles/            # Material 3 theme tokens (light/dark)
+└── material-web.d.ts  # Custom JSX declarations for @material/web
 ```
 
-#### Kernkomponenten
+#### Core Modules
 
-**1. ADB-Service-Layer (`src/services/adb/`)**
-- `AdbClient`: Wrapper für Tango ADB
-  - `requestDevice()`: WebUSB-Device-Picker
-  - `runShellCommand()`: Shell-Befehle ausführen
-  - `grantWriteSecureSettings()`: Spezifischer Grant-Befehl
-- `BrowserCredentialStore`: RSA-Key-Management
-  - Generiert 2048-bit RSA-Keys
-  - Speichert in localStorage als Base64
-  - Implementiert AdbCredentialStore-Interface
+**1. ADB Service Layer (`src/services/adb/`)**
+- `AdbClient`: wraps Tango ADB
+  - `requestDevice()` – WebUSB device picker
+  - `runShellCommand()` – executes shell commands
+  - `grantWriteSecureSettings()` – encapsulates the pm grant command
+- `BrowserCredentialStore`: manages 2048-bit RSA keys in localStorage and implements `AdbCredentialStore`
 
-**2. React Hooks (`src/hooks/`)**
-- `useAdbConnection`: Connection State Machine
-  - States: DISCONNECTED → CONNECTING → CONNECTED / ERROR
-  - Device-Info-Tracking
-  - WebUSB-Support-Detection
-- `usePermissionGrant`: Command Execution
-  - Grant/Check-Status-Befehle
-  - Loading/Success/Error-States
-  - Output-Tracking
+**2. Hooks (`src/hooks/`)**
+- `useAdbConnection`: connection state machine with support detection, device metadata, and friendly errors
+- `usePermissionGrant`: handles command execution (grant/check) with loading/success/error states
 
-**3. UI-Komponenten**
-- `StepCard`: Nummerierte Cards mit Header, Body, Actions, StatusChip
-- `ConnectionStep`: Verbindungslogik + Status-Anzeige
-- `GrantPermissionStep`: Command-Execution + Feedback
-- `StatusChip`: Farbcodierte Status-Badges
-- `UnsupportedBrowserCard`: Browser-Guard
+**3. UI Components**
+- `StepCard`: numbered cards with header, body, actions, status chip
+- `ConnectionStep`: device connection UX + status feedback
+- `GrantPermissionStep`: grant command + status check flow
+- `StatusChip`: tone-based badges (neutral/success/warning/error)
+- `UnsupportedBrowserCard`: guard rail for incompatible browsers
 
 ### Material 3 Integration
 
-- Web Components via `@material/web`
-- Buttons: `<md-filled-button>`, `<md-outlined-button>`
-- Cards: `<md-elevated-card>`, `<md-filled-card>`
-- Progress: `<md-linear-progress>`, `<md-circular-progress>`
-- TypeScript-Deklarationen in `material-web.d.ts`
+- Imports Material Web components (buttons, cards, progress)
+- Light/dark token sets defined in `styles/light.css` and `styles/dark.css`
+- Theme glue in `styles/theme.css` reuses Material token names for backgrounds, containers, and typography
+- Components reference tokens via CSS custom properties (e.g., `--md-sys-color-surface`)
 
-### UX-Flow
+### UX Flow
 
-1. **Vorbereitung (Step 1)**
-   - Statische Anleitung für Developer Options + USB-Debugging
-   
-2. **Gerät verbinden (Step 2)**
-   - Button triggert WebUSB-Picker
-   - ADB-Authentifizierung (RSA-Key-Exchange)
-   - Status-Chip zeigt Verbindungsstatus
-   
-3. **Berechtigung erteilen (Step 3)**
-   - "Berechtigung gewähren"-Button führt `pm grant`-Befehl aus
-   - "Status prüfen"-Button via `dumpsys package`
-   - Output wird in readonly Code-Blocks angezeigt
-   
-4. **Info & Sicherheit (Step 4)**
-   - Erklärt Datenschutz und lokale Ausführung
+1. **Prepare** – enable developer options and USB debugging
+2. **Connect device** – WebUSB picker + ADB authorization
+3. **Grant permission** – executes `pm grant dev.lexip.hecate android.permission.WRITE_SECURE_SETTINGS` and optional status check
+4. **Privacy & safety** – explains the local-only nature and revocation options
 
-### Fehlerbehandlung
+### Error Handling
 
-- **WebUSB nicht verfügbar**: Zeigt UnsupportedBrowserCard
-- **Kein Gerät ausgewählt**: User-friendly Error in ConnectionStep
-- **ADB-Auth fehlgeschlagen**: Zeigt Hinweis zur erneuten Autorisierung
-- **Command-Fehler**: Output wird angezeigt, User kann reagieren
+- Unsupported browser → dedicated card with guidance
+- No device selected → friendly message
+- ADB authorization missing → surfaced via status chips
+- Shell command failures → messages plus console output for advanced users
 
 ### Styling
 
-- Material 3 Design Language
-- CSS Custom Properties für Farben/Tokens
-- Responsive Layout (Mobile-First)
-- Fade-in Animationen für Cards
-- Clamp-basierte Typografie (responsive)
+- Material 3 design tokens for light/dark mode driven by `prefers-color-scheme`
+- Surface containers replace custom shadows for elevation
+- Responsive layout with clamp-based typography
+- Reusable fade-in animation for cards
 
-## Sicherheit & Datenschutz
+## Security & Privacy
 
-✅ **Komplett lokal** – keine Server-Kommunikation  
-✅ **Open Source** – Code ist prüfbar  
-✅ **Keine Tracking/Analytics**  
-✅ **RSA-Keys nur in localStorage** – nicht geteilt  
-✅ **User hat volle Kontrolle** – ADB-Auth widerrufbar  
+✅ 100% local execution – no backend communication  
+✅ Open-source code for transparency  
+✅ No tracking/analytics  
+✅ RSA keys persist only in localStorage  
+✅ Users can revoke ADB authorization on-device at any time
 
 ## Build & Deployment
 
-### Entwicklung
+### Development
 ```bash
 npm install
 npm run dev
 ```
 
-### Produktion
+### Production
 ```bash
 npm run build
-# Output in dist/
+# artifacts in dist/
 ```
 
-### Deployment-Optionen
-- Statisches Hosting (Netlify, Vercel, GitHub Pages)
-- Keine Server-Logik nötig
-- HTTPS erforderlich (WebUSB-Requirement)
+### Deployment Options
+- Static hosting (Netlify, Vercel, GitHub Pages)
+- HTTPS required for WebUSB
+- No server-side logic needed
 
-## Browser-Anforderungen
+## Browser Support
 
-**Unterstützt:**
-- Chrome 89+ (Desktop)
-- Edge 89+ (Desktop)
-- Brave (Desktop)
+**Supported**
+- Chrome 89+ (desktop)
+- Edge 89+ (desktop)
+- Brave (desktop)
 
-**Nicht unterstützt:**
-- Firefox (kein WebUSB-Support)
-- Safari (kein WebUSB-Support)
-- Alle mobilen Browser
+**Not supported**
+- Firefox (no WebUSB)
+- Safari (no WebUSB)
+- Mobile browsers (WebUSB unavailable)
 
-## Zukünftige Erweiterungen
+## Future Enhancements
+- [ ] Localization (i18n)
+- [ ] Advanced diagnostics/log export
+- [ ] Auto reconnect for ADB
+- [ ] Command history and retries
+- [ ] UI accessibility refinements
 
-- [ ] Mehrsprachigkeit (i18n)
-- [ ] Dark Mode
-- [ ] Erweiterte Fehlerdiagnostik
-- [ ] Automatische ADB-Reconnect
-- [ ] Command-History
-- [ ] Export von Debug-Logs
-
-## Git-Commits (Conventional Commits)
-
-Alle Commits folgen dem Conventional Commits Standard:
-
+## Conventional Commits
 1. `feat(ui): implement Material 3 UI with ADB connection flow`
 2. `docs: add comprehensive README with usage instructions`
 3. `chore: update HTML metadata and lang attribute`
 
-## Testing
+## Testing Checklist
+- Device picker opens when clicking “Connect device”
+- ADB authorization dialog appears on the phone
+- Grant command succeeds and reports success
+- Status check reflects permission state
+- Unsupported browsers show guidance
+- Layout remains responsive on mobile/desktop breakpoints
 
-Empfohlene Testfälle:
-- [ ] WebUSB-Picker erscheint bei "Gerät verbinden"
-- [ ] ADB-Auth-Dialog wird auf Gerät angezeigt
-- [ ] Grant-Befehl wird erfolgreich ausgeführt
-- [ ] Status-Prüfung zeigt korrekte Ausgabe
-- [ ] Browser-Guard blockiert nicht unterstützte Browser
-- [ ] Responsive Layout funktioniert auf verschiedenen Bildschirmgrößen
-
-## Lizenz
-
-Open Source (Lizenz folgt)
+## License
+Open source (license to be added).
 
 ---
 
-**Entwickelt mit ❤️ für die Android-Community**
-
+Built with care for the Android theming community.

@@ -20,8 +20,8 @@ function App() {
     return (
       <div className="app-shell">
         <header className="app-header">
-          <h1>Adaptive Theme – Permission Helper</h1>
-          <p>Grant WRITE_SECURE_SETTINGS zu Adaptive Theme ohne lokale ADB-Installation.</p>
+          <h1>Adaptive Theme Permission Helper</h1>
+          <p>Grant WRITE_SECURE_SETTINGS to Adaptive Theme without setting up local ADB.</p>
         </header>
         <main className="app-content">
           <UnsupportedBrowserCard />
@@ -36,11 +36,11 @@ function App() {
   return (
     <div className="app-shell">
       <header className="app-header">
-        <h1>Adaptive Theme – Permission Helper</h1>
-        <p>Grant WRITE_SECURE_SETTINGS zu Adaptive Theme ohne lokale ADB-Installation.</p>
+        <h1>Adaptive Theme Permission Helper</h1>
+        <p>Grant WRITE_SECURE_SETTINGS to Adaptive Theme without setting up local ADB.</p>
       </header>
       <main className="app-content">
-        <StepCard number={1} headline="Vorbereitung" description={<p>Diese Schritte erledigst du nur einmal.</p>}>
+        <StepCard number={1} headline="Prepare" description={<p>You only need to perform these steps once.</p>}>
           <PreparationStep />
         </StepCard>
 
@@ -61,8 +61,8 @@ function App() {
           onCheck={permission.checkPermissionStatus}
         />
 
-        <StepCard number={4} headline="Info & Sicherheit">
-          <p>Dieses Tool arbeitet komplett lokal im Browser. Es kommuniziert ausschließlich mit deinem Gerät über WebUSB und führt den sichtbaren ADB-Befehl aus. Du kannst die ADB-Autorisierung jederzeit auf deinem Gerät widerrufen.</p>
+        <StepCard number={4} headline="Privacy & Safety">
+          <p>This tool runs entirely in your browser, talks to your device only via WebUSB, and executes the visible ADB command. You can revoke the ADB authorization on your device at any time.</p>
         </StepCard>
       </main>
     </div>

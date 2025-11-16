@@ -8,8 +8,8 @@
   flex-direction: column;
   align-items: center;
   padding: 48px 16px 64px;
-  background: radial-gradient(circle at top, #fdfcff, #f0f2f6);
-  color: #1d1b20;
+  background: var(--md-sys-color-surface);
+  color: var(--md-sys-color-on-surface);
 }
 
 .app-header {
@@ -26,7 +26,7 @@
 
 .app-header p {
   margin: 0;
-  color: #49454f;
+  color: var(--md-sys-color-on-surface-variant);
   font-size: 1.1rem;
 }
 
@@ -40,13 +40,6 @@
 
 .step-card {
   width: 100%;
-  border-radius: 28px;
-  padding: 24px 28px;
-  display: flex;
-  flex-direction: column;
-  gap: 24px;
-  background: var(--app-surface);
-  box-shadow: 0 24px 60px rgba(43, 39, 68, 0.15);
 }
 
 .preparation-list {
@@ -55,11 +48,11 @@
   display: flex;
   flex-direction: column;
   gap: 12px;
-  color: #4a4458;
+  color: var(--md-sys-color-on-surface);
 }
 
 .preparation-list strong {
-  color: #1d192b;
+  color: var(--md-sys-color-primary);
 }
 
 .command-details code,
@@ -70,27 +63,22 @@ code {
   margin-top: 12px;
   padding: 12px 16px;
   border-radius: 14px;
-  background: #f4f0fb;
-  color: #4a4458;
+  background: var(--md-sys-color-surface-container-highest);
+  color: var(--md-sys-color-on-surface);
   font-size: 0.95rem;
   overflow-x: auto;
 }
 
 .command-output {
-  background: rgba(98, 91, 113, 0.08);
-}
-
-.progress-line {
-  width: 100%;
-  margin-top: 16px;
+  background: var(--md-sys-color-surface-container);
 }
 
 .unsupported-browser-card {
   display: block;
   padding: 32px;
   border-radius: 28px;
-  background: var(--app-surface);
-  box-shadow: 0 24px 60px rgba(43, 39, 68, 0.12);
+  background: var(--md-sys-color-surface-container-highest);
+  color: var(--md-sys-color-on-surface);
 }
 
 .card-actions {
@@ -116,8 +104,7 @@ code {
     padding: 32px 16px 48px;
   }
 
-  .unsupported-browser-card,
-  .step-card {
+  .unsupported-browser-card {
     padding: 24px;
   }
 

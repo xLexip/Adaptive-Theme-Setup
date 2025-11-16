@@ -12,17 +12,16 @@ export class DeviceConnectionError extends Error {
 
 export const friendlyErrorMessage = (error: unknown): string => {
   if (error instanceof DOMException && error.name === 'NotFoundError') {
-    return 'Kein Gerät ausgewählt. Bitte erneut versuchen und ein Gerät anklicken.'
+    return 'No device selected. Please try again and choose a device.'
   }
 
   if (error instanceof DOMException && error.name === 'SecurityError') {
-    return 'Der Browser hat den Zugriff verweigert. Prüfe deine USB-Berechtigungen.'
+    return 'The browser denied access. Check your USB permissions.'
   }
 
   if (error instanceof Error) {
     return error.message
   }
 
-  return 'Unbekannter Fehler. Bitte erneut versuchen oder Browser neu starten.'
+  return 'Unknown error. Please try again or restart the browser.'
 }
-

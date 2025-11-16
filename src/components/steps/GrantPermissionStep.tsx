@@ -24,10 +24,10 @@ interface GrantPermissionStepProps {
 
 const renderStatusChip = (state: { status: CommandExecutionStatus; message?: string }): ReactNode => {
   if (state.status === CommandExecutionStatus.SUCCESS) {
-    return <StatusChip tone="success">Berechtigung gesetzt</StatusChip>
+    return <StatusChip tone="success">Permission granted</StatusChip>
   }
   if (state.status === CommandExecutionStatus.ERROR) {
-    return <StatusChip tone="error">{state.message ?? 'Fehler beim Ausführen'}</StatusChip>
+    return <StatusChip tone="error">{state.message ?? 'Command failed'}</StatusChip>
   }
   return undefined
 }
@@ -43,21 +43,21 @@ export const GrantPermissionStep = ({
 }: GrantPermissionStepProps) => (
   <StepCard
     number={3}
-    headline="Berechtigung erteilen"
-    description={<p>Führe den Grant-Befehl aus, sobald dein Gerät verbunden ist.</p>}
+    headline="Grant permission"
+    description={<p>Run the grant command once your device is connected.</p>}
     actions={
       <>
         <md-filled-button onClick={onGrant} disabled={!canExecute || isGranting}>
-          {isGranting ? 'Befehl läuft…' : 'Berechtigung gewähren'}
+          {isGranting ? 'Executing…' : 'Grant WRITE_SECURE_SETTINGS'}
         </md-filled-button>
         <md-outlined-button onClick={onCheck} disabled={!canExecute || isChecking}>
-          {isChecking ? 'Prüfe…' : 'Status prüfen'}
+          {isChecking ? 'Checking…' : 'Check status'}
         </md-outlined-button>
       </>
     }
     statusChip={renderStatusChip(grantState)}
   >
-    <p>Es wird folgender Befehl auf deinem Gerät ausgeführt:</p>
+    <p>This command runs on your device:</p>
     <CommandDetails />
     {grantState.output && <p className="command-output">{grantState.output}</p>}
     {statusState.output && <p className="command-output">Status: {statusState.output}</p>}
@@ -66,4 +66,3 @@ export const GrantPermissionStep = ({
     )}
   </StepCard>
 )
-
