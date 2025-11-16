@@ -98,11 +98,10 @@ export const GrantPermissionStep = ({
       expanded={expanded}
       completed={completed}
     >
-      <p>This command runs on your device:</p>
       <CommandDetails />
       {grantState.output && <p className="command-output">{grantState.output}</p>}
       {permissionStatus.status === CommandExecutionStatus.SUCCESS && (
-        <p className="all-done">All done! You can now use Adaptive Theme on your device.</p>
+        <p className="all-done">All done! You can now use Adaptive Theme on your mobile device.</p>
       )}
     </StepCard>
   )
