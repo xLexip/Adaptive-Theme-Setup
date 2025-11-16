@@ -5,6 +5,7 @@
   border-radius: 999px;
   font-size: 0.85rem;
   font-weight: 600;
+  animation: chip-pop var(--motion-duration-medium) var(--motion-ease-standard);
 }
 
 .status-chip--neutral {
@@ -15,14 +16,45 @@
 .status-chip--success {
   background: color-mix(in srgb, var(--md-sys-color-primary) 20%, transparent);
   color: var(--md-sys-color-primary);
+  animation: chip-success 1.8s var(--motion-ease-standard) infinite alternate;
 }
 
 .status-chip--warning {
   background: color-mix(in srgb, var(--md-sys-color-tertiary) 25%, transparent);
   color: var(--md-sys-color-tertiary);
+  animation: chip-warning 1.8s var(--motion-ease-standard) infinite alternate;
 }
 
 .status-chip--error {
   background: color-mix(in srgb, var(--md-sys-color-error) 25%, transparent);
   color: var(--md-sys-color-error);
+}
+
+@keyframes chip-pop {
+  from {
+    transform: scale(0.96);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes chip-success {
+  from {
+    box-shadow: 0 0 0 0 color-mix(in srgb, var(--md-sys-color-primary) 30%, transparent);
+  }
+  to {
+    box-shadow: 0 0 0 6px transparent;
+  }
+}
+
+@keyframes chip-warning {
+  from {
+    box-shadow: 0 0 0 0 color-mix(in srgb, var(--md-sys-color-tertiary) 25%, transparent);
+  }
+  to {
+    box-shadow: 0 0 0 6px transparent;
+  }
 }
