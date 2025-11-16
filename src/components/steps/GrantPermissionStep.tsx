@@ -20,6 +20,8 @@ interface GrantPermissionStepProps {
   }
   onGrant(): void
   onCheck(): void
+  expanded?: boolean
+  completed?: boolean
 }
 
 const renderStatusChip = (state: { status: CommandExecutionStatus; message?: string }): ReactNode => {
@@ -40,6 +42,8 @@ export const GrantPermissionStep = ({
   statusState,
   onGrant,
   onCheck,
+  expanded = true,
+  completed = false,
 }: GrantPermissionStepProps) => (
   <StepCard
     number={3}
@@ -56,6 +60,8 @@ export const GrantPermissionStep = ({
       </>
     }
     statusChip={renderStatusChip(grantState)}
+    expanded={expanded}
+    completed={completed}
   >
     <p>This command runs on your device:</p>
     <CommandDetails />

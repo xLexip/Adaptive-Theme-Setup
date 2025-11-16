@@ -1,6 +1,25 @@
 .step-card {
   width: 100%;
   display: block;
+  transition: background 200ms ease, border 200ms ease;
+}
+
+.step-card--collapsed .step-card__inner {
+  padding: 16px 20px;
+}
+
+.step-card--collapsed .step-card__body,
+.step-card--collapsed .step-card__actions {
+  display: none;
+}
+
+.step-card--completed .step-card__inner {
+  border: 1px solid color-mix(in srgb, var(--md-sys-color-primary) 30%, transparent);
+}
+
+.step-card__default-chip {
+  color: var(--md-sys-color-primary);
+  font-weight: 600;
 }
 
 .step-card__inner {

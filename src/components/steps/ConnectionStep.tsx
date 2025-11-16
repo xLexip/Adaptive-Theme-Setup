@@ -8,6 +8,8 @@ interface ConnectionStepProps {
   error?: string
   deviceName?: string
   onConnect(): void
+  expanded?: boolean
+  completed?: boolean
 }
 
 const statusChip = (state: AdbConnectionState, error?: string, deviceName?: string): ReactNode => {
@@ -23,11 +25,13 @@ const statusChip = (state: AdbConnectionState, error?: string, deviceName?: stri
   }
 }
 
-export const ConnectionStep = ({ state, error, deviceName, onConnect }: ConnectionStepProps) => (
+export const ConnectionStep = ({ state, error, deviceName, onConnect, expanded = true, completed = false }: ConnectionStepProps) => (
   <StepCard
     number={2}
     headline="Connect device"
     description={<p>Plug in your device and authorize the browser connection.</p>}
+    expanded={expanded}
+    completed={completed}
     actions={
       <md-filled-button onClick={onConnect} disabled={state === AdbConnectionState.CONNECTING}>
         {state === AdbConnectionState.CONNECTING ? 'Connecting…' : 'Connect device'}
