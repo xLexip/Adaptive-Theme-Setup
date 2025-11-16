@@ -4,71 +4,106 @@ import { StatusChip } from '../feedback/StatusChip'
 import { CommandDetails } from '../info/CommandDetails'
 import { CommandExecutionStatus } from '../../types/adb'
 
-interface GrantPermissionStepProps {
+export interface GrantPermissionStepProps {
   canExecute: boolean
   isGranting: boolean
-  isChecking: boolean
+  deviceName?: string
   grantState: {
     status: CommandExecutionStatus
     message?: string
     output?: string
   }
-  statusState: {
+  permissionStatus: {
     status: CommandExecutionStatus
     message?: string
-    output?: string
   }
+  isAppInstalled: boolean | null
   onGrant(): void
-  onCheck(): void
+  onInstallApp(): void
   expanded?: boolean
   completed?: boolean
 }
 
-const renderStatusChip = (state: { status: CommandExecutionStatus; message?: string }): ReactNode => {
-  if (state.status === CommandExecutionStatus.SUCCESS) {
+const renderPermissionChip = (status: { status: CommandExecutionStatus; message?: string }): ReactNode => {
+  if (status.status === CommandExecutionStatus.SUCCESS) {
     return <StatusChip tone="success">Permission granted</StatusChip>
   }
-  if (state.status === CommandExecutionStatus.ERROR) {
-    return <StatusChip tone="error">{state.message ?? 'Command failed'}</StatusChip>
+  if (status.status === CommandExecutionStatus.ERROR) {
+    return <StatusChip tone="error">{status.message ?? 'Permission missing'}</StatusChip>
   }
-  return undefined
+  if (status.status === CommandExecutionStatus.RUNNING) {
+    return <StatusChip tone="info">Checking permission…</StatusChip>
+  }
+  return <StatusChip tone="error">Permission missing</StatusChip>
+}
+
+const renderAppInstalledChip = (installed: boolean | null): ReactNode => {
+  if (installed === null) {
+    return <StatusChip tone="info">Checking app installation…</StatusChip>
+  }
+  if (installed) {
+    return <StatusChip tone="success">App installed</StatusChip>
+  }
+  return <StatusChip tone="error">App not installed</StatusChip>
 }
 
 export const GrantPermissionStep = ({
   canExecute,
   isGranting,
-  isChecking,
+  deviceName,
   grantState,
-  statusState,
+  permissionStatus,
+  isAppInstalled,
   onGrant,
-  onCheck,
+  onInstallApp,
   expanded = true,
   completed = false,
-}: GrantPermissionStepProps) => (
-  <StepCard
-    number={3}
-    headline="Grant permission"
-    description={<p>Run the grant command once your device is connected.</p>}
-    actions={
-      <>
-        <md-filled-button onClick={onGrant} disabled={!canExecute || isGranting}>
-          {isGranting ? 'Executing…' : 'Grant WRITE_SECURE_SETTINGS'}
-        </md-filled-button>
-        <md-outlined-button onClick={onCheck} disabled={!canExecute || isChecking}>
-          {isChecking ? 'Checking…' : 'Check status'}
-        </md-outlined-button>
-      </>
-    }
-    statusChip={renderStatusChip(grantState)}
-    expanded={expanded}
-    completed={completed}
-  >
-    <p>This command runs on your device:</p>
-    <CommandDetails />
-    {grantState.output && <p className="command-output">{grantState.output}</p>}
-    {statusState.output && <p className="command-output">Status: {statusState.output}</p>}
-    {statusState.status === CommandExecutionStatus.ERROR && (
-      <StatusChip tone="error">{statusState.message}</StatusChip>
-    )}
-  </StepCard>
-)
+}: GrantPermissionStepProps) => {
+  const canGrant = canExecute && !isGranting && isAppInstalled === true
+  const showPermissionChip = isAppInstalled === true
+
+  return (
+    <StepCard
+      number={3}
+      headline="Grant permission"
+      description={<p>Run the grant command once your device is connected.</p>}
+      actions={
+        permissionStatus.status === CommandExecutionStatus.SUCCESS ? (
+          undefined
+        ) : (
+          <div className="grant-permission__actions">
+            <md-filled-button onClick={onGrant} disabled={!canGrant}>
+              {isGranting ? 'Executing…' : 'Grant permission'}
+            </md-filled-button>
+            {isAppInstalled === false && (
+              <md-outlined-button onClick={onInstallApp}>Install app</md-outlined-button>
+            )}
+          </div>
+        )
+      }
+      statusChip={
+        deviceName ? (
+          <div className="grant-permission__chips">
+            <StatusChip tone="success">Connected to {deviceName}</StatusChip>
+            {renderAppInstalledChip(isAppInstalled)}
+            {showPermissionChip && renderPermissionChip(permissionStatus)}
+          </div>
+        ) : (
+          <div className="grant-permission__chips">
+            {renderAppInstalledChip(isAppInstalled)}
+            {showPermissionChip && renderPermissionChip(permissionStatus)}
+          </div>
+        )
+      }
+      expanded={expanded}
+      completed={completed}
+    >
+      <p>This command runs on your device:</p>
+      <CommandDetails />
+      {grantState.output && <p className="command-output">{grantState.output}</p>}
+      {permissionStatus.status === CommandExecutionStatus.SUCCESS && (
+        <p className="all-done">All done! You can now use Adaptive Theme on your device.</p>
+      )}
+    </StepCard>
+  )
+}

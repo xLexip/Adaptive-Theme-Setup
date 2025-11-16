@@ -8,40 +8,91 @@ import { usePermissionGrant } from './hooks/usePermissionGrant'
 import { AdbConnectionState, CommandExecutionStatus } from './types/adb'
 import { UnsupportedBrowserCard } from './components/info/UnsupportedBrowserCard'
 import { useEffect, useState } from 'react'
+import type { StepCardProps } from './components/layout/StepCard'
+import type { GrantPermissionStepProps } from './components/steps/GrantPermissionStep'
 
 function App() {
   const { context, connect, getAdb } = useAdbConnection()
   const adb = getAdb()
   const permission = usePermissionGrant(adb)
+  const {
+    grantState,
+    permissionStatus,
+    isAppInstalled,
+    grantWriteSecureSettings,
+    checkPermissionStatus,
+    checkAppInstalled,
+    openPlayStoreOnDevice,
+    launchAdaptiveTheme,
+  } = permission
 
   const [currentStep, setCurrentStep] = useState(1)
+  const [hasLaunched, setHasLaunched] = useState(false)
+  const [snackbarMessage, setSnackbarMessage] = useState<string | null>(null)
 
   const webUsbUnsupported =
     context.state === AdbConnectionState.ERROR && context.error?.includes('WebUSB')
 
   useEffect(() => {
     if (context.state === AdbConnectionState.CONNECTED) {
-      setCurrentStep((step) => Math.max(step, 3))
+      setCurrentStep(3)
     }
   }, [context.state])
 
+  // After a successful grant, re-check permission and (if not yet launched) launch the app
   useEffect(() => {
-    if (permission.grantState.status === CommandExecutionStatus.SUCCESS) {
-      setCurrentStep((step) => Math.max(step, 4))
+    if (grantState.status === CommandExecutionStatus.SUCCESS) {
+      checkPermissionStatus()
+      if (!hasLaunched) {
+        launchAdaptiveTheme()
+        setHasLaunched(true)
+      }
     }
-  }, [permission.grantState.status])
+  }, [grantState.status, checkPermissionStatus, launchAdaptiveTheme, hasLaunched])
+
+  useEffect(() => {
+    if (permissionStatus.status === CommandExecutionStatus.SUCCESS && !hasLaunched) {
+      launchAdaptiveTheme()
+      setHasLaunched(true)
+    }
+  }, [permissionStatus.status, launchAdaptiveTheme, hasLaunched])
+
+  // Initial checks when entering step 3
+  useEffect(() => {
+    if (currentStep === 3) {
+      checkPermissionStatus()
+      checkAppInstalled()
+    }
+  }, [currentStep, checkPermissionStatus, checkAppInstalled])
+
+  // Background polling to see if the app gets installed while on step 3
+  useEffect(() => {
+    if (currentStep !== 3) return
+
+    const intervalId = globalThis.setInterval(() => {
+      checkAppInstalled()
+    }, 3000)
+
+    return () => globalThis.clearInterval(intervalId)
+  }, [currentStep, checkAppInstalled])
 
   const goToStep = (step: number) => setCurrentStep(step)
 
-  const isGranting = permission.grantState.status === CommandExecutionStatus.RUNNING
-  const isChecking = permission.statusState.status === CommandExecutionStatus.RUNNING
+  const isGranting = grantState.status === CommandExecutionStatus.RUNNING
+
+  const handleInstallApp = async () => {
+    await openPlayStoreOnDevice()
+    setSnackbarMessage('Play Store opened on your device.')
+    setTimeout(() => setSnackbarMessage(null), 4000)
+  }
 
   if (webUsbUnsupported) {
     return (
       <div className="app-shell">
         <header className="app-header">
-          <h1>Adaptive Theme Permission Helper</h1>
-          <p>Grant WRITE_SECURE_SETTINGS to Adaptive Theme without setting up local ADB.</p>
+          <h2>Adaptive Theme</h2>
+          <h1>One-time setup</h1>
+          <p>Easily grant WRITE_SECURE_SETTINGS to Adaptive Theme without setting up local ADB.</p>
         </header>
         <main className="app-content">
           <UnsupportedBrowserCard />
@@ -53,61 +104,63 @@ function App() {
   return (
     <div className="app-shell">
       <header className="app-header">
-        <h1>Adaptive Theme Permission Helper</h1>
-        <p>Grant WRITE_SECURE_SETTINGS to Adaptive Theme without setting up local ADB.</p>
+        <h2>Adaptive Theme: One-time setup</h2>
+        <p>Easily setup Adaptive Theme without setting up local ADB.</p>
       </header>
       <main className="app-content">
-        <StepCard
-          number={1}
-          headline="Prepare"
-          description={<p>You only need to perform these steps once.</p>}
-          expanded={currentStep === 1}
-          completed={currentStep > 1}
-          actions={
-            currentStep === 1 ? (
-              <md-filled-button onClick={() => goToStep(2)}>Continue</md-filled-button>
-            ) : undefined
-          }
-        >
-          <PreparationStep />
-        </StepCard>
+        {/* Step 1: only while currentStep === 1 */}
+        {currentStep === 1 && (
+          <StepCard
+            {...({
+              number: 1,
+              headline: 'Prepare',
+              description: <p>You only need to perform these steps once.</p>,
+              expanded: true,
+              completed: false,
+              actions: (
+                <md-filled-button onClick={() => goToStep(2)}>Continue</md-filled-button>
+              ),
+            } satisfies StepCardProps)}
+          >
+            <PreparationStep />
+          </StepCard>
+        )}
 
-        <ConnectionStep
-          state={context.state}
-          error={context.error}
-          deviceName={context.device?.name || context.device?.serial}
-          onConnect={() => {
-            connect()
-            goToStep(3)
-          }}
-          expanded={currentStep === 2}
-          completed={currentStep > 2}
-        />
+        {/* Step 2: show while we are on step 2 (currentStep === 2) so it's hidden once we advance */}
+        {currentStep === 2 && (
+          <ConnectionStep
+            state={context.state}
+            error={context.error}
+            deviceName={context.device?.name || context.device?.serial}
+            onConnect={connect}
+            onBack={() => goToStep(1)}
+            expanded
+            completed={false}
+          />
+        )}
 
-        <GrantPermissionStep
-          canExecute={Boolean(adb)}
-          isGranting={isGranting}
-          isChecking={isChecking}
-          grantState={permission.grantState}
-          statusState={permission.statusState}
-          onGrant={() => {
-            permission.grantWriteSecureSettings()
-            setCurrentStep(4)
-          }}
-          onCheck={permission.checkPermissionStatus}
-          expanded={currentStep === 3 || currentStep === 4}
-          completed={permission.grantState.status === CommandExecutionStatus.SUCCESS}
-        />
-
-        <StepCard
-          number={4}
-          headline="Privacy & Safety"
-          expanded={currentStep >= 4}
-          completed={permission.grantState.status === CommandExecutionStatus.SUCCESS}
-        >
-          <p>This tool runs entirely in your browser, talks to your device only via WebUSB, and executes the visible ADB command. You can revoke the ADB authorization on your device at any time.</p>
-        </StepCard>
+        {/* Step 3: final step; shows connected device chip and permission status chips */}
+        {currentStep >= 3 && (
+          <GrantPermissionStep
+            {...({
+              canExecute: Boolean(adb),
+              isGranting,
+              deviceName: context.device?.name || context.device?.serial,
+              grantState,
+              permissionStatus,
+              isAppInstalled,
+              onGrant: () => { void grantWriteSecureSettings() },
+              onInstallApp: () => { void handleInstallApp() },
+              expanded: true,
+              // Mark the step as completed once permission has actually been granted
+              completed: permissionStatus.status === CommandExecutionStatus.SUCCESS,
+            } satisfies GrantPermissionStepProps)}
+          />
+        )}
       </main>
+      {snackbarMessage && (
+        <div className="snackbar">{snackbarMessage}</div>
+      )}
     </div>
   )
 }

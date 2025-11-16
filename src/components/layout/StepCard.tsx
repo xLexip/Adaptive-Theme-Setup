@@ -1,7 +1,7 @@
 import type { PropsWithChildren, ReactNode } from 'react'
 import './StepCard.css'
 
-interface StepCardProps extends PropsWithChildren {
+export interface StepCardProps extends PropsWithChildren {
   headline: string
   number: number
   description?: ReactNode
@@ -9,6 +9,8 @@ interface StepCardProps extends PropsWithChildren {
   statusChip?: ReactNode
   expanded?: boolean
   completed?: boolean
+  onBack?: () => void
+  backLabel?: string
 }
 
 export const StepCard = ({
@@ -20,6 +22,8 @@ export const StepCard = ({
   statusChip,
   expanded = true,
   completed = false,
+  onBack,
+  backLabel = 'Back',
 }: StepCardProps) => {
   const classNames = ['step-card', 'fade-in']
   if (!expanded) {
@@ -32,24 +36,32 @@ export const StepCard = ({
   const chipContent = statusChip ?? (completed ? <span className="step-card__default-chip">Completed</span> : null)
 
   return (
-    <md-elevated-card className={classNames.join(' ')} aria-expanded={expanded}
->
+    <div className={classNames.join(' ')} aria-expanded={expanded}>
       <div className="step-card__inner">
         <header className="step-card__header">
           <span className="step-card__number">{number}</span>
           <div className="step-card__heading">
             <h2>{headline}</h2>
-            {description}
+            {expanded && description}
           </div>
           {chipContent}
         </header>
         {expanded && (
           <>
             <div className="step-card__body">{children}</div>
-            {actions ? <div className="step-card__actions">{actions}</div> : null}
+            {(onBack || actions) && (
+              <div className="step-card__actions">
+                {onBack && (
+                  <div className="step-card__actions-left">
+                    <md-text-button onClick={onBack}>{backLabel}</md-text-button>
+                  </div>
+                )}
+                {actions && <div className="step-card__actions-right">{actions}</div>}
+              </div>
+            )}
           </>
         )}
       </div>
-    </md-elevated-card>
+    </div>
   )
 }

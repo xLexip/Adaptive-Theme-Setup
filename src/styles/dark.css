@@ -51,6 +51,7 @@
       --md-sys-color-surface-container: rgb(28 32 36);
       --md-sys-color-surface-container-high: rgb(39 42 47);
       --md-sys-color-surface-container-highest: rgb(50 53 57);
-    }
+	  --md-sys-color-success: rgba(36, 158, 52, 0.47);
+	}
   }
 }

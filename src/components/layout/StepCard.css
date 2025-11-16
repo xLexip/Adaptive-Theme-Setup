@@ -1,7 +1,8 @@
 .step-card {
   width: 100%;
   display: block;
-  transition: background 200ms ease, border 200ms ease;
+  transition: background 200ms ease, border 200ms ease, box-shadow 200ms ease;
+  box-shadow: none;
 }
 
 .step-card--collapsed .step-card__inner {
@@ -14,7 +15,7 @@
 }
 
 .step-card--completed .step-card__inner {
-  border: 1px solid color-mix(in srgb, var(--md-sys-color-primary) 30%, transparent);
+  border: none;
 }
 
 .step-card__default-chip {
@@ -43,6 +44,8 @@
 
 .step-card__heading h2 {
   margin: 0 0 4px;
+  font-size: 1.1rem;
+  font-weight: 600;
 }
 
 .step-card__number {
@@ -65,6 +68,47 @@
   display: flex;
   flex-wrap: wrap;
   gap: 12px;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.step-card__actions-left,
+.step-card__actions-right {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+/* Helper for GrantPermissionStep to stack chips vertically */
+.grant-permission__chips {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  align-items: flex-end;
+}
+
+.grant-permission__actions {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.all-done {
+  color: var(--md-sys-color-primary);
+  font-weight: 700;
+}
+
+.snackbar {
+  position: fixed;
+  left: 50%;
+  bottom: 24px;
+  transform: translateX(-50%);
+  padding: 10px 16px;
+  border-radius: 999px;
+  background: var(--md-sys-color-surface-variant);
+  color: var(--md-sys-color-on-surface-variant);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+  z-index: 10;
 }
 
 @media (max-width: 720px) {
@@ -75,5 +119,10 @@
   .step-card__header {
     flex-direction: column;
     align-items: flex-start;
+  }
+
+  .step-card__actions {
+    flex-direction: column-reverse;
+    align-items: stretch;
   }
 }
