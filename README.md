@@ -1,73 +1,130 @@
-# React + TypeScript + Vite
+# Adaptive Theme – Permission Helper
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Eine Web-App, die Nutzer:innen hilft, der Android-App **Adaptive Theme** (`dev.lexip.hecate`) die Berechtigung `android.permission.WRITE_SECURE_SETTINGS` zu erteilen – ohne lokale ADB-Installation.
 
-Currently, two official plugins are available:
+## ✨ Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- **WebUSB-basierte ADB-Verbindung** – keine Desktop-Software nötig
+- **Material 3 Design** – moderne, barrierefreie Benutzeroberfläche
+- **Schritt-für-Schritt-Anleitung** – vom Developer Mode bis zur Permission
+- **Komplett lokal** – keine Server-Kommunikation, alles im Browser
+- **TypeScript + React** – typsicher und wartbar
 
-## React Compiler
+## 🚀 Voraussetzungen
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+### Browser
+- **Chrome**, **Edge** oder **Brave** (Desktop-Version)
+- WebUSB-Unterstützung erforderlich (nicht auf mobilen Geräten)
 
-## Expanding the ESLint configuration
+### Android-Gerät
+- **Developer Options** aktiviert
+- **USB-Debugging** eingeschaltet
+- USB-Kabel zur Verbindung mit dem Computer
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+## 📖 Verwendung
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+1. **Developer Options aktivieren**
+   - Gehe zu Einstellungen → Über das Telefon
+   - Tippe 7× auf die Build-Nummer
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+2. **USB-Debugging aktivieren**
+   - Gehe zu Einstellungen → System → Entwickleroptionen
+   - Aktiviere „USB-Debugging"
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+3. **Gerät anschließen**
+   - Verbinde dein Android-Gerät per USB
+   - Klicke auf „Gerät verbinden" in der Web-App
+   - Wähle dein Gerät im Browser-Dialog aus
+   - Bestätige die ADB-Autorisierung auf dem Gerät
+
+4. **Berechtigung erteilen**
+   - Klicke auf „Berechtigung gewähren"
+   - Die App führt folgenden Befehl aus:
+     ```bash
+     pm grant dev.lexip.hecate android.permission.WRITE_SECURE_SETTINGS
+     ```
+
+## 🛠️ Entwicklung
+
+### Installation
+
+```bash
+npm install
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+### Development Server
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```bash
+npm run dev
 ```
+
+Die App läuft unter `http://localhost:5173`
+
+### Build
+
+```bash
+npm run build
+```
+
+### Linting
+
+```bash
+npm run lint
+```
+
+## 🏗️ Architektur
+
+```
+src/
+├── components/
+│   ├── layout/        # StepCard, Layout-Komponenten
+│   ├── steps/         # PreparationStep, ConnectionStep, GrantPermissionStep
+│   ├── feedback/      # StatusChip, ProgressIndicator
+│   └── info/          # CommandDetails, UnsupportedBrowserCard
+├── hooks/
+│   ├── useAdbConnection.ts      # Device-Verbindung und State
+│   └── usePermissionGrant.ts    # Shell-Befehle ausführen
+├── services/
+│   └── adb/
+│       ├── adbClient.ts         # WebUSB/ADB-Integration
+│       ├── credentialStore.ts   # RSA-Key-Management
+│       └── errors.ts            # Fehlerbehandlung
+├── types/              # TypeScript-Definitionen
+├── constants/          # ADB-Befehle
+└── utils/              # Base64-Encoder etc.
+```
+
+## 📦 Tech Stack
+
+- **React 19** – UI-Framework
+- **TypeScript** – Typsicherheit
+- **Vite** – Build-Tool
+- **Material Web** – Material 3 Web Components
+- **@yume-chan/adb** – ADB-Protokoll-Implementierung
+- **@yume-chan/adb-daemon-webusb** – WebUSB-Transport
+
+## 🔒 Sicherheit & Datenschutz
+
+- **Keine Server-Kommunikation** – alles läuft lokal im Browser
+- **Kein Tracking** – keine Analytics, keine Cookies
+- **Open Source** – Code ist einsehbar und prüfbar
+- **RSA-Keys im LocalStorage** – persistiert für wiederholte Verbindungen
+- **ADB-Autorisierung widerrufbar** – jederzeit am Gerät deaktivierbar
+
+## 🤝 Beitragen
+
+Pull Requests und Issues sind willkommen! Bitte beachte:
+
+- Nutze **Conventional Commits** für Commit-Messages
+- Teste deine Änderungen lokal
+- Halte den Code TypeScript-konform
+
+## 📄 Lizenz
+
+Dieses Projekt ist Open Source. Lizenzdetails folgen.
+
+## 🙏 Danksagungen
+
+- [Tango (ya-webadb)](https://github.com/yume-chan/ya-webadb) – ADB-Implementierung
+- [Material Web](https://github.com/material-components/material-web) – UI-Komponenten
+
