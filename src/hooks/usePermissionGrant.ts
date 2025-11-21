@@ -85,10 +85,22 @@ export const usePermissionGrant = (adb?: Adb) => {
     }
   }, [adb])
 
+  const wakeDevice = async (adb: Adb): Promise<void> => {
+    try {
+      // Wake up the device; keyevent 224 is WAKEUP on many devices, 26 is POWER toggle
+      await runCommand(adb, 'input keyevent 224 || input keyevent 26')
+      // Attempt to dismiss keyguard/lock screen where allowed
+      await runCommand(adb, 'wm dismiss-keyguard || input keyevent 82')
+    } catch {
+      // Non-critical: if wake fails, we still try to open apps/URLs
+    }
+  }
+
   const openPlayStoreOnDevice = useCallback(async () => {
     if (!adb) return
     const url = `https://play.google.com/store/apps/details?id=${ADAPTIVE_THEME_PACKAGE}`
     try {
+      await wakeDevice(adb)
       await runCommand(adb, `am start -a android.intent.action.VIEW -d "${url}"`)
     } catch {
       // non-critical
@@ -98,6 +110,7 @@ export const usePermissionGrant = (adb?: Adb) => {
   const launchAdaptiveTheme = useCallback(async () => {
     if (!adb) return
     try {
+      await wakeDevice(adb)
       await runCommand(adb, `monkey -p ${ADAPTIVE_THEME_PACKAGE} 1`)
     } catch {
       // ignore launch errors, they are non-critical

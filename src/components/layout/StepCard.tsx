@@ -4,8 +4,8 @@ import './StepCard.css'
 export interface StepCardProps extends PropsWithChildren {
   headline: string
   number: number
-  description?: ReactNode
   actions?: ReactNode
+  actionsRight?: ReactNode
   statusChip?: ReactNode
   expanded?: boolean
   completed?: boolean
@@ -17,8 +17,8 @@ export const StepCard = ({
   children,
   headline,
   number,
-  description,
   actions,
+  actionsRight,
   statusChip,
   expanded = true,
   completed = false,
@@ -33,7 +33,8 @@ export const StepCard = ({
     classNames.push('step-card--completed')
   }
 
-  const chipContent = statusChip ?? (completed ? <span className="step-card__default-chip">Completed</span> : null)
+  const chipContent =
+    statusChip ?? (completed ? <span className="step-card__default-chip">Completed</span> : null)
 
   return (
     <div className={classNames.join(' ')} aria-expanded={expanded}>
@@ -42,21 +43,25 @@ export const StepCard = ({
           <span className="step-card__number">{number}</span>
           <div className="step-card__heading">
             <h2>{headline}</h2>
-            {expanded && description}
           </div>
           {chipContent}
         </header>
         {expanded && (
           <>
             <div className="step-card__body">{children}</div>
-            {(onBack || actions) && (
+            {(onBack || actions || actionsRight) && (
               <div className="step-card__actions">
-                {onBack && (
+                {(onBack || actions) && (
                   <div className="step-card__actions-left">
-                    <md-text-button onClick={onBack}>{backLabel}</md-text-button>
+                    {onBack && (
+                      <md-text-button onClick={onBack}>{backLabel}</md-text-button>
+                    )}
+                    {actions}
                   </div>
                 )}
-                {actions && <div className="step-card__actions-right">{actions}</div>}
+                {actionsRight && (
+                  <div className="step-card__actions-right">{actionsRight}</div>
+                )}
               </div>
             )}
           </>

@@ -30,11 +30,10 @@ export const ConnectionStep = ({ state, error, deviceName, onConnect, onBack, ex
   <StepCard
     number={2}
     headline="Select device"
-    description={<p>Plug in your device and authorize the browser connection.</p>}
     expanded={expanded}
     completed={completed}
     onBack={onBack}
-    actions={
+    actionsRight={
       <md-filled-button onClick={onConnect} disabled={state === AdbConnectionState.CONNECTING}>
         {state === AdbConnectionState.CONNECTING ? 'Connecting…' : 'Select device'}
       </md-filled-button>
@@ -42,7 +41,7 @@ export const ConnectionStep = ({ state, error, deviceName, onConnect, onBack, ex
     statusChip={statusChip(state, error, deviceName)}
   >
     <p>
-      The browser opens a device picker dialog. Select your device and confirm the ADB authorization on the device.
+      Select your target device and confirm the ADB authorization on your phone. After that, the permission can be granted in the final step.
     </p>
   </StepCard>
 )

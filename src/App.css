@@ -15,41 +15,48 @@
   overflow: hidden;
 }
 
-.app-shell::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: radial-gradient(circle at 20% 20%, color-mix(in srgb, var(--md-sys-color-primary) 20%, transparent), transparent 45%),
-    radial-gradient(circle at 80% 0%, color-mix(in srgb, var(--md-sys-color-tertiary) 18%, transparent), transparent 50%);
-  opacity: 0.35;
-  filter: blur(60px);
-  animation: surface-glow 18s ease-in-out infinite alternate;
-  pointer-events: none;
-  z-index: 0;
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .app-shell::before {
-    animation: none;
-  }
-}
-
 .app-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   text-align: center;
-  max-width: 720px;
   margin-bottom: 32px;
 }
 
 .app-header h1 {
   margin: 0 0 8px;
-  font-size: clamp(2rem, 4vw, 2.8rem);
-  font-weight: 600;
+}
+
+.app-header h2 {
+  margin: 0 0 8px;
 }
 
 .app-header p {
   margin: 0;
+}
+
+.app-github-button {
+  position: fixed;
+  bottom: 16px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 10;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 6px;
+  border-radius: 999px;
   color: var(--md-sys-color-on-surface-variant);
-  font-size: 1.1rem;
+  background-color: color-mix(in srgb, var(--md-sys-color-surface) 90%, transparent);
+}
+
+.app-github-button:hover {
+  background-color: color-mix(in srgb, var(--md-sys-color-surface) 100%, transparent);
+}
+
+.app-github-button__icon {
+  width: 18px;
+  height: 18px;
 }
 
 .app-content {
@@ -124,6 +131,12 @@ code {
   box-shadow: 0 8px 20px color-mix(in srgb, var(--md-sys-color-primary) 20%, transparent);
 }
 
+.grant-permission__about {
+  margin-top: 16px;
+  display: flex;
+  justify-content: flex-end;
+}
+
 @keyframes shell-fade {
   from {
     opacity: 0;
@@ -132,18 +145,6 @@ code {
   to {
     opacity: 1;
     transform: translateY(0);
-  }
-}
-
-@keyframes surface-glow {
-  0% {
-    transform: translate3d(0, 0, 0) scale(1);
-  }
-  50% {
-    transform: translate3d(-2%, 2%, 0) scale(1.05);
-  }
-  100% {
-    transform: translate3d(3%, -3%, 0) scale(1.08);
   }
 }
 

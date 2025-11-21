@@ -24,10 +24,10 @@
 }
 
 .step-card__inner {
-  padding: 24px 28px;
+  padding: 20px 24px;
   display: flex;
   flex-direction: column;
-  gap: 24px;
+  gap: 12px;
   background: var(--md-sys-color-surface-container-highest);
   border-radius: 28px;
 }
@@ -79,6 +79,11 @@
   gap: 12px;
 }
 
+/* Ensure right actions sit at the far right edge when there is no left content */
+.step-card__actions-right {
+  margin-left: auto;
+}
+
 /* Helper for GrantPermissionStep to stack chips vertically */
 .grant-permission__chips {
   display: flex;
@@ -91,6 +96,11 @@
   display: flex;
   gap: 12px;
   flex-wrap: wrap;
+}
+
+.grant-permission__more-actions {
+  display: flex;
+  gap: 8px;
 }
 
 .all-done {
@@ -113,7 +123,7 @@
 
 @media (max-width: 720px) {
   .step-card__inner {
-    padding: 20px;
+    padding: 18px;
   }
 
   .step-card__header {

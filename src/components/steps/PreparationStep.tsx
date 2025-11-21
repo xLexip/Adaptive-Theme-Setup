@@ -2,13 +2,13 @@ import type { ReactNode } from 'react'
 
 const items: ReactNode[] = [
   <li key="dev-options">
-    <strong>Enable developer options:</strong> Open Settings → About phone → tap Build number seven times.
+    <strong>Enable the developer options on your phone:</strong> Go to <i>Settings</i> → <i>About phone</i> → tap the <i>Build number</i> eight times.
   </li>,
   <li key="usb-debugging">
-    <strong>Turn on USB debugging:</strong> Settings → System → Developer options → enable USB debugging.
+    <strong>Turn on USB debugging:</strong> Go to <i>Settings</i> → <i>System</i> → <i>Developer options</i> → enable <i>USB debugging</i>.
   </li>,
   <li key="trust">
-    Confirm the ADB authorization dialog when it appears on your device. The device remembers the approval.
+	  <strong>Connection:</strong> Connect your phone to this device via USB.
   </li>,
 ]
 

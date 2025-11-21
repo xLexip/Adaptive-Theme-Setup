@@ -20,6 +20,7 @@ export interface GrantPermissionStepProps {
   isAppInstalled: boolean | null
   onGrant(): void
   onInstallApp(): void
+  onRateApp(): void
   expanded?: boolean
   completed?: boolean
 }
@@ -56,31 +57,49 @@ export const GrantPermissionStep = ({
   isAppInstalled,
   onGrant,
   onInstallApp,
+  onRateApp,
   expanded = true,
   completed = false,
 }: GrantPermissionStepProps) => {
   const canGrant = canExecute && !isGranting && isAppInstalled === true
   const showPermissionChip = isAppInstalled === true
+  const permissionGranted = permissionStatus.status === CommandExecutionStatus.SUCCESS
+
+  const handleOpenAbout = () => {
+    window.open('https://github.com/xLexip/Hecate/blob/main/README.md', '_blank', 'noreferrer')
+  }
+
+  const actions =
+    permissionGranted
+      ? (
+          <div className="grant-permission__more-actions">
+            <md-filled-button onClick={() => window.close()}>Close tab</md-filled-button>
+            <md-text-button onClick={handleOpenAbout}>About Adaptive Theme</md-text-button>
+            <md-text-button onClick={onRateApp}>Rate app</md-text-button>
+          </div>
+        )
+      : undefined
+
+  const actionsRight =
+    permissionGranted
+      ? undefined
+      : (
+          <div className="grant-permission__actions">
+            {isAppInstalled === false && (
+              <md-outlined-button onClick={onInstallApp}>Install app</md-outlined-button>
+            )}
+            <md-filled-button onClick={onGrant} disabled={!canGrant}>
+              {isGranting ? 'Executing…' : 'Grant permission'}
+            </md-filled-button>
+          </div>
+        )
 
   return (
     <StepCard
       number={3}
       headline="Grant permission"
-      description={<p>Run the grant command once your device is connected.</p>}
-      actions={
-        permissionStatus.status === CommandExecutionStatus.SUCCESS ? (
-          undefined
-        ) : (
-          <div className="grant-permission__actions">
-            <md-filled-button onClick={onGrant} disabled={!canGrant}>
-              {isGranting ? 'Executing…' : 'Grant permission'}
-            </md-filled-button>
-            {isAppInstalled === false && (
-              <md-outlined-button onClick={onInstallApp}>Install app</md-outlined-button>
-            )}
-          </div>
-        )
-      }
+      actions={actions}
+      actionsRight={actionsRight}
       statusChip={
         deviceName ? (
           <div className="grant-permission__chips">
@@ -100,7 +119,7 @@ export const GrantPermissionStep = ({
     >
       <CommandDetails />
       {grantState.output && <p className="command-output">{grantState.output}</p>}
-      {permissionStatus.status === CommandExecutionStatus.SUCCESS && (
+      {permissionGranted && (
         <p className="all-done">All done! You can now use Adaptive Theme on your mobile device.</p>
       )}
     </StepCard>

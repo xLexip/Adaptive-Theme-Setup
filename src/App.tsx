@@ -10,6 +10,7 @@ import { UnsupportedBrowserCard } from './components/info/UnsupportedBrowserCard
 import { useEffect, useState } from 'react'
 import type { StepCardProps } from './components/layout/StepCard'
 import type { GrantPermissionStepProps } from './components/steps/GrantPermissionStep'
+import githubMark from '/github-mark.svg'
 
 function App() {
   const { context, connect, getAdb } = useAdbConnection()
@@ -80,19 +81,31 @@ function App() {
 
   const isGranting = grantState.status === CommandExecutionStatus.RUNNING
 
-  const handleInstallApp = async () => {
+  const handleOpenPlayStore = async () => {
     await openPlayStoreOnDevice()
     setSnackbarMessage('Play Store opened on your device.')
     setTimeout(() => setSnackbarMessage(null), 4000)
   }
 
+  const handleInstallApp = async () => {
+    await handleOpenPlayStore()
+  }
+
   if (webUsbUnsupported) {
     return (
       <div className="app-shell">
+        <a
+          href="https://github.com/xLexip/Hecate/blob/main/README.md"
+          className="app-github-button"
+          target="_blank"
+          rel="noreferrer noopener"
+          aria-label="Open Hecate GitHub README"
+        >
+          <img src={githubMark} alt="GitHub" className="app-github-button__icon" />
+        </a>
         <header className="app-header">
-          <h2>Adaptive Theme</h2>
-          <h1>One-time setup</h1>
-          <p>Easily grant WRITE_SECURE_SETTINGS to Adaptive Theme without setting up local ADB.</p>
+          <h2>Adaptive Theme: One-time setup</h2>
+          <p>Easily setup Adaptive Theme without setting up local ADB.</p>
         </header>
         <main className="app-content">
           <UnsupportedBrowserCard />
@@ -103,6 +116,15 @@ function App() {
 
   return (
     <div className="app-shell">
+      <a
+        href="https://github.com/xLexip/Hecate/blob/main/README.md"
+        className="app-github-button"
+        target="_blank"
+        rel="noreferrer noopener"
+        aria-label="Open Hecate GitHub README"
+      >
+        <img src={githubMark} alt="GitHub" className="app-github-button__icon" />
+      </a>
       <header className="app-header">
         <h2>Adaptive Theme: One-time setup</h2>
         <p>Easily setup Adaptive Theme without setting up local ADB.</p>
@@ -114,14 +136,15 @@ function App() {
             {...({
               number: 1,
               headline: 'Prepare',
-              description: <p>You only need to perform these steps once.</p>,
               expanded: true,
               completed: false,
-              actions: (
+              actionsRight: (
                 <md-filled-button onClick={() => goToStep(2)}>Continue</md-filled-button>
               ),
             } satisfies StepCardProps)}
           >
+			  <p>Adaptive Theme needs a special permission to be able to change the device theme. The permission allows the app to modify system settings, in this case the device theme. The permission is only used to switch the device theme to light/dark mode. <br/><br/> There are <b>no permanent changes</b> made on your device. You can revoke the permission at any time by uninstalling the app. This would completely revert the process.
+				  <br/><br/> <b>To grant the permission:</b></p>
             <PreparationStep />
           </StepCard>
         )}
@@ -151,6 +174,7 @@ function App() {
               isAppInstalled,
               onGrant: () => { void grantWriteSecureSettings() },
               onInstallApp: () => { void handleInstallApp() },
+              onRateApp: () => { void handleOpenPlayStore() },
               expanded: true,
               // Mark the step as completed once permission has actually been granted
               completed: permissionStatus.status === CommandExecutionStatus.SUCCESS,
