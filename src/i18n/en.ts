@@ -2,103 +2,105 @@ export const en = {
 	app: {
 		title: 'Adaptive Theme: One-time setup',
 		snackbar: {
-			playStoreOpened: 'Play Store has been opened on your device.',
+			playStoreOpened: 'Play Store opened on your device.',
 		},
 		footer: {
-			githubAriaLabel: 'Open the Hecate README on GitHub',
+			// FIXED: Changed "Hecate" to "Adaptive Theme"
+			githubAriaLabel: 'Open the Adaptive Theme README on GitHub',
 			githubAlt: 'GitHub',
 		},
 	},
 	steps: {
 		preparation: {
-			headline: 'Prepare',
+			headline: 'Get Ready',
 			intro: {
 				general:
-					'Open this website on a device other than your Android device that has the app installed.',
+					'Please open this website on a computer, tablet, or a second phone. Do not use the device that has Adaptive Theme installed.',
 				explanation:
-					"Adaptive Theme needs a special permission to change your Android device's theme. This permission allows the app to modify the device theme and is only used to switch between light and dark mode. No permanent changes are made to your device, and you can revert this at any time by uninstalling the app.",
-				howToGrant: 'To grant the permission:',
+					"By default, Android blocks apps from changing the system theme. To unlock this feature, we need to grant a secure permission. This is safe and" +
+					" completely reversible.",
+				howToGrant: 'Follow these steps:',
 				expertsLabel: 'For experts:',
 				expertsDescription:
-					'Alternatively, you can run the following ADB command yourself:',
+					'Already have ADB? You can skip the GUI and run this command manually:',
 			},
 			list: {
 				devOptions:
-					"Enable developer options on your Android device: Go to Settings → About device → tap 'Build number' seven times.",
+					"Enable Developer Options: Go to Settings → About Phone → tap 'Build number' 7 times.",
 				usbDebugging:
-					'Enable USB debugging: Go to Settings → System → Developer options → turn on USB debugging.',
+					'Enable USB Debugging: Go to Settings → System → Developer Options → toggle on USB debugging.',
 				connection:
-					'Connect your Android device to this device using a USB cable.',
+					'Connect your Android device to this device via a USB cable.',
 			},
 			actions: {
-				playStoreLabel: 'Play Store',
-				continue: 'Continue',
+				playStoreLabel: 'Open Play Store',
+				continue: 'I am ready',
 			},
 		},
 		connection: {
-			headline: 'Select device',
+			headline: 'Connect Device',
 			button: {
-				default: 'Select device',
+				default: 'Connect Device',
 				connecting: 'Connecting…',
 			},
 			status: {
 				connecting: 'Connecting…',
 				connected: 'Connected to {{deviceName}}',
-				error: 'Connection failed',
+				error: 'Connection failed. Please check your cable.',
 				noDevice: 'No device selected',
 			},
 			body: {
+				// Simplified this to focus on the critical failure point (The popup)
 				line1:
-					'Open this website on a device other than your Android device that has Adaptive Theme installed.',
+					'Click the button below and select your phone from the list.',
 				line2:
-					'Select your target device and confirm the ADB authorization on your Android device. After that, you can grant the permission in the final step. No device found? Make sure you have completed the previous steps and selected data transfer mode on your Android device.',
+					'⚠️ Look at your phone screen! A popup will apperar to confirm the connection.',
 			},
 		},
 		grantPermission: {
-			headline: 'Grant permission',
+			headline: 'Finish Setup',
 			permissionStatus: {
-				granted: 'Permission granted',
-				missing: 'Permission missing',
-				checking: 'Checking permission…',
+				granted: 'Permission Active',
+				missing: 'Permission Missing',
+				checking: 'Checking status…',
 			},
 			appInstalledStatus: {
-				checking: 'Checking app installation…',
-				installed: 'App installed',
+				checking: 'Looking for app…',
+				installed: 'App found',
 				notInstalled: 'App not installed',
 			},
 			actions: {
-				installApp: 'Install app',
-				executing: 'Executing…',
-				grantPermission: 'Grant permission',
+				installApp: 'Install Adaptive Theme',
+				executing: 'Applying…',
+				grantPermission: 'Grant Permission',
 				aboutApp: 'About Adaptive Theme',
-				rateApp: 'Rate app',
+				// FIXED: "5-start" typo
+				rateApp: 'Enjoying it? Rate us 5 stars! :]',
 			},
 			chips: {
 				connectedTo: 'Connected to {{deviceName}}',
 			},
-			allDone: 'All done! You can now use Adaptive Theme on your Android device.',
+			allDone: 'Success! You can now disconnect your phone and configure Adaptive Theme.',
 		},
 	},
 	layout: {
 		stepCard: {
 			back: 'Back',
-			completed: 'Completed',
+			completed: 'Done',
 		},
 	},
 	unsupportedBrowser: {
-		title: 'Whoops — browser not supported',
+		title: 'Browser not supported',
 		description:
-			'This tool only works in modern Chromium-based desktop browsers such as Chrome, Edge, Brave, and similar.',
+			'This tool requires a browser with WebUSB support. Please use Google Chrome, Microsoft Edge, Brave, or Opera on a Desktop/Laptop.',
 		expertsLabel: 'For experts:',
 		expertsDescription:
-			'Alternatively, you can run the following ADB command yourself:',
+			'If you cannot change browsers, run this ADB command manually via terminal:',
 	},
 	commandDetails: {
 		intro:
-			"Adaptive Theme needs a special permission to change your Android device's theme. This permission allows the app to modify system settings related to the device theme and is only used to switch between light and dark mode. To grant it, the following command will be executed:",
+			"The following command will grant the 'WRITE_SECURE_SETTINGS' permission to Adaptive Theme. This allows the app to toggle Night Mode automatically.",
 		outro:
-			'No permanent changes are made to your device. You can revoke this permission at any time by uninstalling the app, which fully reverts the process.',
+			'No data is read, and no permanent changes are made. Uninstalling the app instantly revokes this permission.',
 	},
 } as const;
-
-export type TranslationResources = typeof en;

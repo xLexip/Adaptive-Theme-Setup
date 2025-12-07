@@ -124,7 +124,7 @@ function App() {
 				</main>
 				<footer className="app-footer">
 					<a
-						href="https://github.com/xLexip/Hecate/blob/main/README.md"
+						href="https://github.com/xLexip/Adaptive-Theme"
 						className="app-github-button"
 						target="_blank"
 						rel="noreferrer noopener"
@@ -179,7 +179,7 @@ function App() {
 						<p>
 							<b>{t('steps.preparation.intro.expertsLabel')}</b>
 							<br/> {t('steps.preparation.intro.expertsDescription')}
-							<br/> adb shell pm grant dev.lexip.hecate android.permission.WRITE_SECURE_SETTINGS
+							<br/> <i>adb shell pm grant dev.lexip.hecate android.permission.WRITE_SECURE_SETTINGS</i>
 						</p>
 					</StepCard>
 				)}
@@ -222,7 +222,7 @@ function App() {
 			</main>
 			<footer className="app-footer">
 				<a
-					href="https://github.com/xLexip/Hecate/blob/main/README.md"
+					href="https://github.com/xLexip/Adaptive-Theme"
 					className="app-github-button"
 					target="_blank"
 					rel="noreferrer noopener"

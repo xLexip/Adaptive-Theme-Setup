@@ -1,18 +1,6 @@
 import {initializeApp} from 'firebase/app';
 import {type Analytics, getAnalytics, isSupported} from 'firebase/analytics';
-
-// Firebase configuration for dev-lexip-hecate project.
-// Note: In a real-world app, consider moving these values into environment variables
-// (VITE_FIREBASE_*) instead of hard-coding them.
-const firebaseConfig = {
-	apiKey: 'AIzaSyCjBfJzf1eiEuWW3RqkrkygEbMmjqCVI-8',
-	authDomain: 'dev-lexip-hecate.firebaseapp.com',
-	projectId: 'dev-lexip-hecate',
-	storageBucket: 'dev-lexip-hecate.firebasestorage.app',
-	messagingSenderId: '49709844519',
-	appId: '1:49709844519:web:f97d13ec96c8a513c9a602',
-	measurementId: 'G-BFR0ES8Z94',
-} as const;
+import {firebaseConfig} from './firebaseConfig.local';
 
 // Initialize Firebase app once at module load.
 export const firebaseApp = initializeApp(firebaseConfig);
@@ -34,4 +22,3 @@ export const analyticsPromise: Promise<Analytics | null> = isSupported()
 		console.warn('[Firebase] Analytics support check failed:', error);
 		return null;
 	});
-

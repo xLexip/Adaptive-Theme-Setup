@@ -70,7 +70,7 @@ const GrantedActions = ({onRateApp}: { onRateApp: () => void }) => {
 	const {t} = useI18n()
 
 	const handleOpenAbout = () => {
-		window.open('https://github.com/xLexip/Hecate', '_blank', 'noreferrer')
+		window.open('https://github.com/xLexip/Adaptive-Theme', '_blank', 'noreferrer')
 	}
 
 	return (

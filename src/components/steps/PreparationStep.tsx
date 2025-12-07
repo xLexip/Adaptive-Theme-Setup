@@ -14,7 +14,7 @@ export const PreparationStep = () => {
 			{t('steps.preparation.list.usbDebugging').split(':').slice(1).join(':')}
 		</li>,
 		<li key="trust">
-			<strong>{t('steps.preparation.list.connection').split(':')[0]}:</strong>{' '}
+			<strong>{t('steps.preparation.list.connection').split(':')[0]}</strong>{' '}
 			{t('steps.preparation.list.connection').split(':').slice(1).join(':')}
 		</li>,
 	]
