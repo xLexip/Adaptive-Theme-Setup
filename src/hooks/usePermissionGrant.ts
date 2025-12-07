@@ -36,7 +36,10 @@ export const usePermissionGrant = (adb?: Adb) => {
     }
   }, [adb])
 
-  const grantWriteSecureSettings = useCallback(() => execute(GRANT_PERMISSION_COMMAND, setGrantState), [execute])
+  const grantWriteSecureSettings = useCallback(
+    () => execute(GRANT_PERMISSION_COMMAND, setGrantState),
+    [execute],
+  )
 
   const checkPermissionStatus = useCallback(async () => {
     if (!adb) {
@@ -50,7 +53,9 @@ export const usePermissionGrant = (adb?: Adb) => {
     setStatusState({ status: CommandExecutionStatus.RUNNING })
     try {
       const output = await runCommand(adb, CHECK_PERMISSION_COMMAND)
-      const granted = /WRITE_SECURE_SETTINGS\s*:\s*granted=true/.test(output) || /grantedPermissions:.*WRITE_SECURE_SETTINGS/s.test(output)
+      const granted =
+        /WRITE_SECURE_SETTINGS\s*:\s*granted=true/.test(output) ||
+        /grantedPermissions:.*WRITE_SECURE_SETTINGS/s.test(output)
       setStatusState({
         status: granted ? CommandExecutionStatus.SUCCESS : CommandExecutionStatus.ERROR,
         output,
@@ -87,12 +92,10 @@ export const usePermissionGrant = (adb?: Adb) => {
 
   const wakeDevice = async (adb: Adb): Promise<void> => {
     try {
-      // Wake up the device; keyevent 224 is WAKEUP on many devices, 26 is POWER toggle
       await runCommand(adb, 'input keyevent 224 || input keyevent 26')
-      // Attempt to dismiss keyguard/lock screen where allowed
       await runCommand(adb, 'wm dismiss-keyguard || input keyevent 82')
     } catch {
-      // Non-critical: if wake fails, we still try to open apps/URLs
+      // Best effort only.
     }
   }
 
@@ -103,7 +106,7 @@ export const usePermissionGrant = (adb?: Adb) => {
       await wakeDevice(adb)
       await runCommand(adb, `am start -a android.intent.action.VIEW -d "${url}"`)
     } catch {
-      // non-critical
+      // Non-critical failure.
     }
   }, [adb])
 
@@ -113,7 +116,7 @@ export const usePermissionGrant = (adb?: Adb) => {
       await wakeDevice(adb)
       await runCommand(adb, `monkey -p ${ADAPTIVE_THEME_PACKAGE} 1`)
     } catch {
-      // ignore launch errors, they are non-critical
+      // Non-critical failure.
     }
   }, [adb])
 

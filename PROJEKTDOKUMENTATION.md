@@ -2,11 +2,13 @@
 
 ## Project Summary
 
-A modern single-page web app that lets users grant the Android app “Adaptive Theme” (`dev.lexip.hecate`) the `android.permission.WRITE_SECURE_SETTINGS` permission entirely via WebUSB—no local ADB installation required.
+A modern single-page web app that lets users grant the Android app “Adaptive Theme” (`dev.lexip.hecate`) the `android.permission.WRITE_SECURE_SETTINGS` permission entirely via
+WebUSB—no local ADB installation required.
 
 ## Technical Implementation
 
 ### Tech Stack
+
 - **React 19** with TypeScript (strict typing)
 - **Vite** for bundling
 - **Material Web (@material/web)** for Material 3 components
@@ -16,6 +18,7 @@ A modern single-page web app that lets users grant the Android app “Adaptive T
 ### Architecture
 
 #### Project Structure
+
 ```
 src/
 ├── components/
@@ -35,17 +38,20 @@ src/
 #### Core Modules
 
 **1. ADB Service Layer (`src/services/adb/`)**
+
 - `AdbClient`: wraps Tango ADB
-  - `requestDevice()` – WebUSB device picker
-  - `runShellCommand()` – executes shell commands
-  - `grantWriteSecureSettings()` – encapsulates the pm grant command
+    - `requestDevice()` – WebUSB device picker
+    - `runShellCommand()` – executes shell commands
+    - `grantWriteSecureSettings()` – encapsulates the pm grant command
 - `BrowserCredentialStore`: manages 2048-bit RSA keys in localStorage and implements `AdbCredentialStore`
 
 **2. Hooks (`src/hooks/`)**
+
 - `useAdbConnection`: connection state machine with support detection, device metadata, and friendly errors
 - `usePermissionGrant`: handles command execution (grant/check) with loading/success/error states
 
 **3. UI Components**
+
 - `StepCard`: numbered cards with header, body, actions, status chip
 - `ConnectionStep`: device connection UX + status feedback
 - `GrantPermissionStep`: grant command + status check flow
@@ -91,18 +97,21 @@ src/
 ## Build & Deployment
 
 ### Development
+
 ```bash
 npm install
 npm run dev
 ```
 
 ### Production
+
 ```bash
 npm run build
 # artifacts in dist/
 ```
 
 ### Deployment Options
+
 - Static hosting (Netlify, Vercel, GitHub Pages)
 - HTTPS required for WebUSB
 - No server-side logic needed
@@ -110,16 +119,19 @@ npm run build
 ## Browser Support
 
 **Supported**
+
 - Chrome 89+ (desktop)
 - Edge 89+ (desktop)
 - Brave (desktop)
 
 **Not supported**
+
 - Firefox (no WebUSB)
 - Safari (no WebUSB)
 - Mobile browsers (WebUSB unavailable)
 
 ## Future Enhancements
+
 - [ ] Localization (i18n)
 - [ ] Advanced diagnostics/log export
 - [ ] Auto reconnect for ADB
@@ -127,19 +139,22 @@ npm run build
 - [ ] UI accessibility refinements
 
 ## Conventional Commits
+
 1. `feat(ui): implement Material 3 UI with ADB connection flow`
 2. `docs: add comprehensive README with usage instructions`
 3. `chore: update HTML metadata and lang attribute`
 
 ## Testing Checklist
+
 - Device picker opens when clicking “Connect device”
-- ADB authorization dialog appears on the phone
+- ADB authorization dialog appears on the mobile device
 - Grant command succeeds and reports success
 - Status check reflects permission state
 - Unsupported browsers show guidance
 - Layout remains responsive on mobile/desktop breakpoints
 
 ## License
+
 Open source (license to be added).
 
 ---

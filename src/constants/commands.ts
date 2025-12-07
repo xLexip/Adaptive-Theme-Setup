@@ -7,3 +7,4 @@ export const GRANT_PERMISSION_COMMAND =
 
 export const CHECK_PERMISSION_COMMAND = `dumpsys package ${ADAPTIVE_THEME_PACKAGE} | grep WRITE_SECURE_SETTINGS`
 
+
