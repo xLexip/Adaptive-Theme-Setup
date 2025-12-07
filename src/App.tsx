@@ -11,6 +11,7 @@ import {AdbConnectionState, CommandExecutionStatus} from './types/adb'
 import {UnsupportedBrowserCard} from './components/info/UnsupportedBrowserCard'
 import {useEffect, useRef, useState} from 'react'
 import githubMark from '/github-mark.svg'
+import {useI18n} from './i18n/i18n'
 
 function App() {
 	const {context, connect, getAdb} = useAdbConnection()
@@ -26,6 +27,8 @@ function App() {
 		openPlayStoreOnDevice,
 		launchAdaptiveTheme,
 	} = permission
+
+	const {t} = useI18n()
 
 	const [currentStep, setCurrentStep] = useState(1)
 	const [snackbarMessage, setSnackbarMessage] = useState<string | null>(null)
@@ -101,7 +104,7 @@ function App() {
 
 	const handleOpenPlayStore = async () => {
 		await openPlayStoreOnDevice()
-		setSnackbarMessage('Play Store opened on your device.')
+		setSnackbarMessage(t('app.snackbar.playStoreOpened'))
 		setTimeout(() => setSnackbarMessage(null), 4000)
 	}
 
@@ -114,7 +117,7 @@ function App() {
 			<div className="app-shell">
 				{/* Removed top anchors; footer will render them at the bottom */}
 				<header className="app-header">
-					<h3>Adaptive Theme: One-time setup</h3>
+					<h3>{t('app.title')}</h3>
 				</header>
 				<main className="app-content">
 					<UnsupportedBrowserCard/>
@@ -125,9 +128,9 @@ function App() {
 						className="app-github-button"
 						target="_blank"
 						rel="noreferrer noopener"
-						aria-label="Open Hecate GitHub README"
+						aria-label={t('app.footer.githubAriaLabel')}
 					>
-						<img src={githubMark} alt="GitHub" className="app-github-button__icon"/>
+						<img src={githubMark} alt={t('app.footer.githubAlt')} className="app-github-button__icon"/>
 					</a>
 				</footer>
 			</div>
@@ -142,7 +145,7 @@ function App() {
 					<StepCard
 						{...({
 							number: 1,
-							headline: 'Prepare',
+							headline: t('steps.preparation.headline'),
 							expanded: true,
 							completed: false,
 							actionsRight: (
@@ -153,28 +156,29 @@ function App() {
 										target="_blank"
 										rel="noreferrer noopener"
 									>
-										<span className="app-playstore-inline__text">Play Store</span>
+										<span className="app-playstore-inline__text">{t('steps.preparation.actions.playStoreLabel')}</span>
 										<span aria-hidden className="app-playstore-inline__arrow">↗</span>
 									</a>
-									<md-filled-button onClick={() => goToStep(2)} disabled={firstContinueDisabled}>Continue</md-filled-button>
+									<md-filled-button onClick={() => goToStep(2)} disabled={firstContinueDisabled}>
+										{t('steps.preparation.actions.continue')}
+									</md-filled-button>
 								</>
 							),
 						} satisfies StepCardProps)}
 					>
 						<p>
-							Open this website on a device other than your mobile device that has the app installed.
+							{t('steps.preparation.intro.general')}
 							<br/>
 							<br/>
-							Adaptive Theme needs a special permission to be able to change the theme of your android device. The
-							permission allows the app to modify the device theme and is only used to switch the device theme to light/dark mode.
-							There are no permanent changes made on your device and you can revert this at any time by uninstalling the app.
+							{t('steps.preparation.intro.explanation')}
 							<br/>
 							<br/>
-							<b>To grant the permission:</b>
+							<b>{t('steps.preparation.intro.howToGrant')}</b>
 						</p>
 						<PreparationStep/>
 						<p>
-							<b>For Experts:</b><br/> Alternatively, you can run the following ADB command yourself:
+							<b>{t('steps.preparation.intro.expertsLabel')}</b>
+							<br/> {t('steps.preparation.intro.expertsDescription')}
 							<br/> adb shell pm grant dev.lexip.hecate android.permission.WRITE_SECURE_SETTINGS
 						</p>
 					</StepCard>
@@ -222,9 +226,9 @@ function App() {
 					className="app-github-button"
 					target="_blank"
 					rel="noreferrer noopener"
-					aria-label="Open Hecate GitHub README"
+					aria-label={t('app.footer.githubAriaLabel')}
 				>
-					<img src={githubMark} alt="GitHub" className="app-github-button__icon"/>
+					<img src={githubMark} alt={t('app.footer.githubAlt')} className="app-github-button__icon"/>
 				</a>
 			</footer>
 			{snackbarMessage && <div className="snackbar">{snackbarMessage}</div>}

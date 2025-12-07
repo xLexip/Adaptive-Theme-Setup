@@ -1,9 +1,14 @@
-import { GRANT_PERMISSION_COMMAND } from '../../constants/commands'
+import {GRANT_PERMISSION_COMMAND} from '../../constants/commands'
+import {useI18n} from '../../i18n/i18n'
 
-export const CommandDetails = () => (
-  <div className="command-details">
-    <p>Adaptive Theme needs a special permission to be able to change the theme of your android device. The permission allows the app to modify system settings, in this case the device theme. The permission is only used to switch the device theme to light/dark mode. To grant it, the following command will be executed:</p>
-    <code>{GRANT_PERMISSION_COMMAND}</code>
-    <p>There are no permanent changes made on your device. You can revoke the permission at any time by uninstalling the app. This would completely revert the process.</p>
-  </div>
-)
+export const CommandDetails = () => {
+	const {t} = useI18n()
+
+	return (
+		<div className="command-details">
+			<p>{t('commandDetails.intro')}</p>
+			<code>{GRANT_PERMISSION_COMMAND}</code>
+			<p>{t('commandDetails.outro')}</p>
+		</div>
+	)
+}
