@@ -9,28 +9,26 @@ export const en = {
 			githubAriaLabel: 'Open the Adaptive Theme README on GitHub',
 			githubAlt: 'GitHub',
 		},
+		languageLabel: 'Language',
 	},
 	steps: {
 		preparation: {
 			headline: 'Get Ready',
 			intro: {
 				general:
-					'Please open this website on a computer, tablet, or a second phone. Do not use the device that has Adaptive Theme installed.',
+					'Please open this website on another computer, tablet or phone. Do not use the device that has Adaptive Theme installed.',
 				explanation:
-					"By default, Android blocks apps from changing the system theme. To unlock this feature, we need to grant a secure permission. This is safe and" +
-					" completely reversible.",
-				howToGrant: 'Follow these steps:',
+					"By default, Android blocks apps from changing the system theme. To unlock this feature, we need to grant a secure permission. This is safe and completely" +
+					" reversible.",
+				howToGrantLine1: 'Follow the steps in the Adaptive Theme app on your target device.',
+				howToGrantLine2:
+					'After you have enabled USB debugging in the developer options, connect both devices via USB and continue here.',
 				expertsLabel: 'For experts:',
 				expertsDescription:
-					'Already have ADB? You can skip the GUI and run this command manually:',
+					'Already have ADB? You can skip this and run this command manually:',
 			},
 			list: {
-				devOptions:
-					"Enable Developer Options: Go to Settings → About Phone → tap 'Build number' 7 times.",
-				usbDebugging:
-					'Enable USB Debugging: Go to Settings → System → Developer Options → toggle on USB debugging.',
-				connection:
-					'Connect your Android device to this device via a USB cable.',
+				// list items intentionally removed
 			},
 			actions: {
 				playStoreLabel: 'Open Play Store',
@@ -38,7 +36,7 @@ export const en = {
 			},
 		},
 		connection: {
-			headline: 'Connect Device',
+			headline: 'Connect USB-Device',
 			button: {
 				default: 'Connect Device',
 				connecting: 'Connecting…',

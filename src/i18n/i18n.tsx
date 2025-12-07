@@ -1,5 +1,6 @@
-import {createContext, type ReactNode, useContext, useMemo, useState} from 'react';
+import {createContext, type ReactNode, useContext, useEffect, useMemo, useState} from 'react';
 import {en} from './en';
+import {de} from './de';
 
 export type TranslationParams = Record<string, string | number | undefined>;
 
@@ -15,7 +16,43 @@ const I18nContext = createContext<I18nContextValue | undefined>(undefined);
 
 const translations: Record<string, typeof en> = {
 	en,
+	de,
 };
+
+export type Locale = keyof typeof translations;
+
+export const SUPPORTED_LOCALES: Record<Locale, { label: string }> = {
+	en: {label: 'English'},
+	de: {label: 'Deutsch'},
+};
+
+function detectInitialLocale(): Locale {
+	// Prefer stored preference
+	if (typeof window !== 'undefined') {
+		try {
+			const stored = window.localStorage.getItem('hecate-locale') as Locale | null;
+			if (stored && stored in translations) return stored;
+		} catch {
+			// ignore
+		}
+	}
+
+	// Browser language
+	if (typeof navigator !== 'undefined') {
+		const candidates: string[] = [];
+		if (Array.isArray((navigator as any).languages)) {
+			candidates.push(...((navigator as any).languages as string[]));
+		}
+		if (navigator.language) candidates.push(navigator.language);
+
+		for (const raw of candidates) {
+			const base = raw.toLowerCase().split('-')[0];
+			if (base in translations) return base as Locale;
+		}
+	}
+
+	return 'en';
+}
 
 function resolveKey(dict: typeof en, key: string): string | undefined {
 	const parts = key.split('.');
@@ -40,7 +77,21 @@ function interpolate(template: string, params?: TranslationParams): string {
 }
 
 export const I18nProvider = ({children}: { children: ReactNode }) => {
-	const [locale, setLocale] = useState<string>('en');
+	const [locale, setLocaleState] = useState<Locale>(detectInitialLocale);
+
+	useEffect(() => {
+		try {
+			window.localStorage.setItem('hecate-locale', locale);
+		} catch {
+			// ignore
+		}
+	}, [locale]);
+
+	const setLocale = (next: string) => {
+		if (next in translations) {
+			setLocaleState(next as Locale);
+		}
+	};
 
 	const value = useMemo<I18nContextValue>(() => {
 		const dict = translations[locale] ?? en;

@@ -166,21 +166,7 @@ function App() {
 							),
 						} satisfies StepCardProps)}
 					>
-						<p>
-							{t('steps.preparation.intro.general')}
-							<br/>
-							<br/>
-							{t('steps.preparation.intro.explanation')}
-							<br/>
-							<br/>
-							<b>{t('steps.preparation.intro.howToGrant')}</b>
-						</p>
 						<PreparationStep/>
-						<p>
-							<b>{t('steps.preparation.intro.expertsLabel')}</b>
-							<br/> {t('steps.preparation.intro.expertsDescription')}
-							<br/> <i>adb shell pm grant dev.lexip.hecate android.permission.WRITE_SECURE_SETTINGS</i>
-						</p>
 					</StepCard>
 				)}
 
