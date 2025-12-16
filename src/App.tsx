@@ -12,6 +12,7 @@ import {UnsupportedBrowserCard} from './components/info/UnsupportedBrowserCard'
 import {useEffect, useRef, useState} from 'react'
 import githubMark from '/github-mark.svg'
 import {useI18n} from './i18n/i18n'
+import {useAnalytics} from './hooks/useAnalytics'
 
 function App() {
 	const {context, connect, getAdb} = useAdbConnection()
@@ -29,6 +30,7 @@ function App() {
 	} = permission
 
 	const {t} = useI18n()
+	const {logEvent} = useAnalytics()
 
 	const [currentStep, setCurrentStep] = useState(1)
 	const [snackbarMessage, setSnackbarMessage] = useState<string | null>(null)
@@ -46,31 +48,33 @@ function App() {
 			setFirstContinueDisabled(true)
 			timer = window.setTimeout(() => setFirstContinueDisabled(false), 3000)
 		} else {
-			// ensure enabled on other steps
 			setFirstContinueDisabled(false)
 		}
-
 		return () => {
 			if (timer) clearTimeout(timer)
 		}
-	}, [currentStep])
+	}, [currentStep, logEvent])
 
 	useEffect(() => {
 		if (context.state === AdbConnectionState.CONNECTED) {
+			logEvent('web_device_connected', {
+				device_name: context.device?.name || context.device?.serial,
+			})
 			setCurrentStep((prev) => (prev < 3 ? 3 : prev))
 		}
-	}, [context.state])
+	}, [context.state, context.device, logEvent])
 
 	useEffect(() => {
 		if (grantState.status !== CommandExecutionStatus.SUCCESS) return
 
+		logEvent('web_permission_granted')
 		checkPermissionStatus()
 
 		if (!launchedRef.current) {
 			launchAdaptiveTheme()
 			launchedRef.current = true
 		}
-	}, [grantState.status, checkPermissionStatus, launchAdaptiveTheme])
+	}, [grantState.status, checkPermissionStatus, launchAdaptiveTheme, logEvent])
 
 	useEffect(() => {
 		if (permissionStatus.status !== CommandExecutionStatus.SUCCESS) return
@@ -79,7 +83,7 @@ function App() {
 			launchAdaptiveTheme()
 			launchedRef.current = true
 		}
-	}, [permissionStatus.status, launchAdaptiveTheme])
+	}, [permissionStatus.status, launchAdaptiveTheme, logEvent])
 
 	useEffect(() => {
 		if (currentStep === 3) {
@@ -109,7 +113,15 @@ function App() {
 	}
 
 	const handleInstallApp = async () => {
+		logEvent('web_install_app')
 		await handleOpenPlayStore()
+	}
+
+	const handleOpenRepo = () => {
+		logEvent('web_open_github_repo')
+		if (typeof window !== 'undefined') {
+			window.open('https://github.com/xLexip/Adaptive-Theme', '_blank', 'noopener,noreferrer')
+		}
 	}
 
 	if (webUsbUnsupported) {
@@ -196,7 +208,11 @@ function App() {
 								void handleInstallApp()
 							},
 							onRateApp: () => {
+								logEvent('web_rate_app')
 								void handleOpenPlayStore()
+							},
+							onOpenRepo: () => {
+								handleOpenRepo()
 							},
 							expanded: true,
 							completed: permissionStatus.status === CommandExecutionStatus.SUCCESS,

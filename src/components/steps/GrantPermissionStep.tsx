@@ -22,6 +22,8 @@ export interface GrantPermissionStepProps {
 	onInstallApp(): void
 
 	onRateApp(): void
+
+	onOpenRepo(): void
 }
 
 const PermissionStatusChip = ({
@@ -99,6 +101,7 @@ export const GrantPermissionStep = ({
 										onGrant,
 										onInstallApp,
 										onRateApp,
+										onOpenRepo,
 										expanded = true,
 										completed = false,
 									}: GrantPermissionStepProps) => {
@@ -170,7 +173,7 @@ export const GrantPermissionStep = ({
 				<div className="step-card__actions-center">
 					<div className="grant-permission__buttons" style={{textAlign: 'center'}}>
 						<md-outlined-button style={{display: 'inline-block', width: 'auto', margin: '0 12px'}}
-											onClick={() => window.open('https://github.com/xLexip/Adaptive-Theme', '_blank', 'noreferrer')}>
+											onClick={onOpenRepo}>
 							GitHub Repo
 						</md-outlined-button>
 						<md-outlined-button style={{display: 'inline-block', width: 'auto', margin: '0 12px'}} onClick={onRateApp}>
