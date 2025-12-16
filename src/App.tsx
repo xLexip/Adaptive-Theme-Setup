@@ -128,7 +128,6 @@ function App() {
 						className="app-github-button"
 						target="_blank"
 						rel="noreferrer noopener"
-						aria-label={t('app.footer.githubAriaLabel')}
 					>
 						<img src={githubMark} alt={t('app.footer.githubAlt')} className="app-github-button__icon"/>
 					</a>
@@ -212,7 +211,6 @@ function App() {
 					className="app-github-button"
 					target="_blank"
 					rel="noreferrer noopener"
-					aria-label={t('app.footer.githubAriaLabel')}
 				>
 					<img src={githubMark} alt={t('app.footer.githubAlt')} className="app-github-button__icon"/>
 				</a>

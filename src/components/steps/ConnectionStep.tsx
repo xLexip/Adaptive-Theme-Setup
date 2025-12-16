@@ -65,13 +65,20 @@ export const ConnectionStep = ({state, error, deviceName, onConnect, onBack, exp
 						: t('steps.connection.button.default')}
 				</md-filled-button>
 			}
-			statusChip={<StatusChipContent state={state} error={error} deviceName={deviceName}/>}
-		>
+			statusChip={<StatusChipContent state={state} error={error} deviceName={deviceName}/>}>
 			<p>
 				{t('steps.connection.body.line1')}
 				<br/><br/>
 				{t('steps.connection.body.line2')}
 			</p>
+
+			{/* Collapsible help for missing devices */}
+			<div style={{height: 8}} aria-hidden="true"/>
+
+			<details className="connection-cant-find" aria-labelledby="connection-cant-find-summary">
+				<summary id="connection-cant-find-summary">{t('steps.connection.cantFind.title')}</summary>
+				<p>{t('steps.connection.cantFind.body')}</p>
+			</details>
 		</StepCard>
 	)
 }

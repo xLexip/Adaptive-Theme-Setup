@@ -15,21 +15,18 @@ export const PreparationStep = () => {
 				{t('steps.preparation.intro.general')}
 				<br/>
 				<br/>
-				{t('steps.preparation.intro.explanation')}
-				<br/>
-				<br/>
-				<b>{t('steps.preparation.intro.howToGrantLine1')}</b>{' '}
-				<br/>
-				<br/>
-				<b>{t('steps.preparation.intro.howToGrantLine2')}</b>
+				<b>{t('steps.preparation.intro.howToGrantLine1')}</b>
 			</p>
+
+			{/* small spacer */}
+			<div style={{height: 8}} aria-hidden="true"/>
+
+			<details className="preparation-why" aria-labelledby="preparation-why-summary">
+				<summary id="preparation-why-summary">{t('steps.preparation.intro.whyLabel')}</summary>
+				<p>{t('steps.preparation.intro.explanation')}</p>
+			</details>
+
 			<ul className="preparation-list">{/* items were removed */}</ul>
-			<p>
-				<b>{t('steps.preparation.intro.expertsLabel')}</b>
-				<br/> {t('steps.preparation.intro.expertsDescription')}
-				<br/>{' '}
-				<i>adb shell pm grant dev.lexip.hecate android.permission.WRITE_SECURE_SETTINGS</i>
-			</p>
 		</div>
 	)
 }

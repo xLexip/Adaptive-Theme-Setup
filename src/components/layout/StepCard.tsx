@@ -39,10 +39,13 @@ export const StepCard = ({
 	const chipContent =
 		statusChip ??
 		(completed ? (
-			<span className="step-card__default-chip">{t('layout.stepCard.completed')}</span>
+			<span className="step-card__default-chip">{t('')}</span>
 		) : null)
 
 	const effectiveBackLabel = backLabel ?? t('layout.stepCard.back')
+
+	// If there is only `actions` and no onBack or actionsRight, center the actions
+	const onlyActionsCentered = !!actions && !onBack && !actionsRight
 
 	return (
 		<div className={classNames.join(' ')} aria-expanded={expanded}>
@@ -58,17 +61,23 @@ export const StepCard = ({
 					<>
 						<div className="step-card__body">{children}</div>
 						{(onBack || actions || actionsRight) && (
-							<div className="step-card__actions">
-								{(onBack || actions) && (
-									<div className="step-card__actions-left">
-										{onBack && (
-											<md-text-button onClick={onBack}>{effectiveBackLabel}</md-text-button>
+							<div className={`step-card__actions${onlyActionsCentered ? ' step-card__actions--centered' : ''}`}>
+								{onlyActionsCentered ? (
+									<div className="step-card__actions-center">{actions}</div>
+								) : (
+									<>
+										{(onBack || actions) && (
+											<div className="step-card__actions-left">
+												{onBack && (
+													<md-text-button onClick={onBack}>{effectiveBackLabel}</md-text-button>
+												)}
+												{actions}
+											</div>
 										)}
-										{actions}
-									</div>
-								)}
-								{actionsRight && (
-									<div className="step-card__actions-right">{actionsRight}</div>
+										{actionsRight && (
+											<div className="step-card__actions-right">{actionsRight}</div>
+										)}
+									</>
 								)}
 							</div>
 						)}

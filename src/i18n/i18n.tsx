@@ -14,12 +14,16 @@ interface I18nContextValue {
 
 const I18nContext = createContext<I18nContextValue | undefined>(undefined);
 
-const translations: Record<string, typeof en> = {
+// Use a looser value type for translations to avoid requiring identical string literal
+// types between different language modules (en/de). Keep Locale as a literal union.
+type Locale = 'en' | 'de';
+type TranslationRecord = Record<string, any>;
+const translations: { [K in Locale]: TranslationRecord } = {
 	en,
 	de,
 };
 
-export type Locale = keyof typeof translations;
+export type {Locale};
 
 export const SUPPORTED_LOCALES: Record<Locale, { label: string }> = {
 	en: {label: 'English'},
@@ -54,7 +58,7 @@ function detectInitialLocale(): Locale {
 	return 'en';
 }
 
-function resolveKey(dict: typeof en, key: string): string | undefined {
+function resolveKey(dict: Record<string, any>, key: string): string | undefined {
 	const parts = key.split('.');
 	let current: any = dict;
 	for (const part of parts) {

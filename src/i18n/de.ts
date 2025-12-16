@@ -15,28 +15,25 @@ export const de = {
 			headline: 'Vorbereitung',
 			intro: {
 				general:
-					'Bitte öffne diese Webseite auf einem Computer, Tablet oder einem zweiten Smartphone. Benutze nicht das Gerät, auf dem Adaptive Theme installiert ist.',
+					'Installiere Adaptive Theme auf deinem Android-Gerätund öffne diese Webseite auf einem anderen Gerät.',
 				explanation:
-					"Standardmäßig blockiert Android Apps daran, das Systemdesign zu ändern. Um diese Funktion freizuschalten, müssen wir eine sichere Berechtigung erteilen. Dies ist sicher und vollständig rückgängig zu machen.",
-				howToGrantLine1: 'Folge den Schritten in der Adaptive Theme App auf deinem Zielgerät.',
-				howToGrantLine2:
-					'Nachdem du USB-Debugging in den Entwickleroptionen aktiviert hast, verbinde beide Geräte per USB und fahre hier fort.',
-				expertsLabel: 'Für Experten:',
-				expertsDescription:
-					'Hast du bereits ADB? Du kannst dies überspringen und diesen Befehl manuell ausführen:',
+					"Standardmäßig verhindert Android, dass Apps Geräteeinstellungen wie den Dark Mode ändern. Um diese Funktion freizuschalten, müssen wir eine spezielle" +
+					" Berechtigung erteilen. Dies ist sicher und vollständig rückgängig zu machen, es erlaubt der App nur, Einstellungen wie den Dark Mode umzuschalten.",
+				howToGrantLine1: 'Starte die Einrichtung in der Adaptive Theme App auf deinem Zielgerät.',
+				whyLabel: 'Warum ist das erforderlich?',
 			},
 			list: {
 				// list items intentionally removed
 			},
 			actions: {
 				playStoreLabel: 'Play Store öffnen',
-				continue: 'Ich bin bereit',
+				continue: 'Weiter',
 			},
 		},
 		connection: {
 			headline: 'USB-Gerät verbinden',
 			button: {
-				default: 'Gerät verbinden',
+				default: 'Gerät auswählen',
 				connecting: 'Verbinde…',
 			},
 			status: {
@@ -50,6 +47,11 @@ export const de = {
 					'Klicke auf den Button unten und wähle dein Smartphone aus der Liste.',
 				line2:
 					'⚠️ Schau auf dein Smartphone-Display! Ein Popup wird erscheinen, um die Verbindung zu bestätigen.',
+			},
+			cantFind: {
+				title: 'Gerät nicht gefunden?',
+				body:
+					'Wähle bei deinem Smartphone im USB-Modus „Dateiübertragung“ statt „Nur Laden“. Stelle außerdem sicher, dass das Kabel Datenübertragung unterstützt. Falls das Gerät immer noch nicht angezeigt wird, versuche einen anderen Computer oder eine alternative Einrichtungs-Methode in der Adaptive Theme App.',
 			},
 		},
 		grantPermission: {
@@ -68,7 +70,7 @@ export const de = {
 				installApp: 'Adaptive Theme installieren',
 				executing: 'Wende an…',
 				grantPermission: 'Berechtigung erteilen',
-				aboutApp: 'Über Adaptive Theme',
+				starOnGithub: 'Über Adaptive Theme',
 				rateApp: 'Gefällt es dir? Bewerte uns mit 5 Sternen! :]',
 			},
 			chips: {
@@ -87,15 +89,9 @@ export const de = {
 		title: 'Browser nicht unterstützt',
 		description:
 			'Dieses Tool benötigt einen Browser mit WebUSB-Unterstützung. Bitte nutze Google Chrome, Microsoft Edge, Brave oder Opera auf einem PC/Laptop.',
-		expertsLabel: 'Für Experten:',
-		expertsDescription:
-			'Falls du den Browser nicht wechseln kannst, führe diesen ADB-Befehl manuell im Terminal aus:',
 	},
 	commandDetails: {
-		intro:
-			"Der folgende Befehl erteilt Adaptive Theme die Berechtigung „WRITE_SECURE_SETTINGS“. Dies erlaubt der App, den Nachtmodus automatisch umzuschalten.",
-		outro:
-			'Es werden keine Daten gelesen und keine dauerhaften Änderungen vorgenommen. Das Deinstallieren der App widerruft diese Berechtigung sofort.',
+		intro: 'Der folgende Befehl wird ausgeführt, damit die App Geräteeinstellungen wie den Dark Mode automatisch umschalten kann.',
+		outro: 'Dies ist sicher und vollständig rückgängig zu machen. Es werden keine Daten gelesen und keine dauerhaften Änderungen am Gerät vorgenommen. Das Deinstallieren der App hebt die Änderung auf und entzieht die Berechtigung.',
 	},
 } as const;
-

@@ -1,12 +1,13 @@
+const appName = 'Adaptive Theme';
+
 export const en = {
 	app: {
-		title: 'Adaptive Theme: One-time setup',
+		name: appName,
+		title: `${appName}: One-time setup`,
 		snackbar: {
 			playStoreOpened: 'Play Store opened on your device.',
 		},
 		footer: {
-			// FIXED: Changed "Hecate" to "Adaptive Theme"
-			githubAriaLabel: 'Open the Adaptive Theme README on GitHub',
 			githubAlt: 'GitHub',
 		},
 		languageLabel: 'Language',
@@ -16,23 +17,16 @@ export const en = {
 			headline: 'Get Ready',
 			intro: {
 				general:
-					'Please open this website on another computer, tablet or phone. Do not use the device that has Adaptive Theme installed.',
+					`Install "${appName}" on your Android device and open this website on another device.`,
 				explanation:
-					"By default, Android blocks apps from changing the system theme. To unlock this feature, we need to grant a secure permission. This is safe and completely" +
-					" reversible.",
-				howToGrantLine1: 'Follow the steps in the Adaptive Theme app on your target device.',
-				howToGrantLine2:
-					'After you have enabled USB debugging in the developer options, connect both devices via USB and continue here.',
-				expertsLabel: 'For experts:',
-				expertsDescription:
-					'Already have ADB? You can skip this and run this command manually:',
+					"By default, Android prevents apps from changing device settings like the dark mode. To unlock this feature, we need to grant a special permission. This is safe and completely reversible, it just allows the app to toggle settings like the dark mode.",
+				howToGrantLine1: `Start the setup in the "${appName}" app on your Android device.`,
+				whyLabel: 'Why is this required?',
 			},
-			list: {
-				// list items intentionally removed
-			},
+			list: {},
 			actions: {
 				playStoreLabel: 'Open Play Store',
-				continue: 'I am ready',
+				continue: 'Continue',
 			},
 		},
 		connection: {
@@ -52,13 +46,19 @@ export const en = {
 				line1:
 					'Click the button below and select your phone from the list.',
 				line2:
-					'⚠️ Look at your phone screen! A popup will apperar to confirm the connection.',
+					'After selecting your device, a popup will apperar your the Android device to confirm the connection.',
+			},
+			cantFind: {
+				title: "Can't find your device?",
+				body:
+					'Try to select "data transfer" instead of "charging" on the other device. Also make sure that the cable supports data transfer. If you still can\'t find' +
+					` your device, try using another computer, or use an alternative setup method in the ${appName} app.`,
 			},
 		},
 		grantPermission: {
 			headline: 'Finish Setup',
 			permissionStatus: {
-				granted: 'Permission Active',
+				granted: 'Permission Granted',
 				missing: 'Permission Missing',
 				checking: 'Checking status…',
 			},
@@ -68,17 +68,16 @@ export const en = {
 				notInstalled: 'App not installed',
 			},
 			actions: {
-				installApp: 'Install Adaptive Theme',
+				installApp: `Install ${appName}`,
 				executing: 'Applying…',
 				grantPermission: 'Grant Permission',
-				aboutApp: 'About Adaptive Theme',
-				// FIXED: "5-start" typo
+				starOnGithub: 'Star on GitHub',
 				rateApp: 'Enjoying it? Rate us 5 stars! :]',
 			},
 			chips: {
 				connectedTo: 'Connected to {{deviceName}}',
 			},
-			allDone: 'Success! You can now disconnect your phone and configure Adaptive Theme.',
+			allDone: `That's it! You can now disconnect your phone and configure ${appName}.`,
 		},
 	},
 	layout: {
@@ -90,15 +89,10 @@ export const en = {
 	unsupportedBrowser: {
 		title: 'Browser not supported',
 		description:
-			'This tool requires a browser with WebUSB support. Please use Google Chrome, Microsoft Edge, Brave, or Opera on a Desktop/Laptop.',
-		expertsLabel: 'For experts:',
-		expertsDescription:
-			'If you cannot change browsers, run this ADB command manually via terminal:',
+			'This tool requires a browser with WebUSB support. Please use a chromium-based browser like Chrome, Edge, Brave, etc.',
 	},
 	commandDetails: {
-		intro:
-			"The following command will grant the 'WRITE_SECURE_SETTINGS' permission to Adaptive Theme. This allows the app to toggle Night Mode automatically.",
-		outro:
-			'No data is read, and no permanent changes are made. Uninstalling the app instantly revokes this permission.',
+		intro: 'The following command will be executed to allow the app to toggle device settings like the dark mode automatically.',
+		outro: 'This is safe and completely reversible. No data is read, and no permanent changes are made to the device. Uninstalling the app reverts the process and revokes the permission.',
 	},
 } as const;

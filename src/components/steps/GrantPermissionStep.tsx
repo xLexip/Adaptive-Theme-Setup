@@ -9,11 +9,6 @@ export interface GrantPermissionStepProps {
 	canExecute: boolean
 	isGranting: boolean
 	deviceName?: string
-	grantState: {
-		status: CommandExecutionStatus
-		message?: string
-		output?: string
-	}
 	permissionStatus: {
 		status: CommandExecutionStatus
 		message?: string
@@ -74,10 +69,10 @@ const GrantedActions = ({onRateApp}: { onRateApp: () => void }) => {
 	}
 
 	return (
-		<div className="grant-permission__more-actions">
-			<md-text-button onClick={handleOpenAbout}>{t('steps.grantPermission.actions.aboutApp')}</md-text-button>
-			<md-text-button onClick={onRateApp}>{t('steps.grantPermission.actions.rateApp')}</md-text-button>
-		</div>
+		<>
+			<md-outlined-button onClick={handleOpenAbout}>{t('steps.grantPermission.actions.starOnGithub')}</md-outlined-button>
+			<md-outlined-button onClick={onRateApp}>{t('steps.grantPermission.actions.rateApp')}</md-outlined-button>
+		</>
 	)
 }
 
@@ -150,7 +145,8 @@ export const GrantPermissionStep = ({
 		)
 	}
 
-	const actions = permissionGranted ? <GrantedActions onRateApp={onRateApp}/> : undefined
+	// For reliable centering we'll render the post-grant action buttons in the body
+	const actions = undefined
 
 	const actionsRight =
 		permissionGranted
@@ -171,15 +167,34 @@ export const GrantPermissionStep = ({
 			headline={t('steps.grantPermission.headline')}
 			actions={actions}
 			actionsRight={actionsRight}
-			statusChip={<div className="grant-permission__chips">{statusChips}</div>}
+			statusChip={permissionGranted ? undefined : <div className="grant-permission__chips">{statusChips}</div>}
 			expanded={expanded}
 			completed={completed}
 		>
-			<CommandDetails/>
+			{!permissionGranted && <CommandDetails/>}
 
 			{permissionGranted && (
-				<p className="all-done">{t('steps.grantPermission.allDone')}</p>
+				<div className="all-done" aria-live="polite">
+					<div style={{height: 100}} aria-hidden="true"/>
+					<p className="all-done__text">{t('steps.grantPermission.allDone')}</p>
+					<div style={{height: 100}} aria-hidden="true"/>
+				</div>
 			)}
+
+			{permissionGranted && (
+				<div className="step-card__actions-center">
+					<div className="grant-permission__buttons" style={{textAlign: 'center'}}>
+						<md-outlined-button style={{display: 'inline-block', width: 'auto', margin: '0 12px'}}
+											onClick={() => window.open('https://github.com/xLexip/Adaptive-Theme', '_blank', 'noreferrer')}>
+							{t('steps.grantPermission.actions.starOnGithub')}
+						</md-outlined-button>
+						<md-outlined-button style={{display: 'inline-block', width: 'auto', margin: '0 12px'}} onClick={onRateApp}>
+							{t('steps.grantPermission.actions.rateApp')}
+						</md-outlined-button>
+					</div>
+				</div>
+			)}
+
 		</StepCard>
 	)
 }
