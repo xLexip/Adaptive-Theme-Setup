@@ -187,7 +187,6 @@ function App() {
 							canExecute: Boolean(adb),
 							isGranting,
 							deviceName: context.device?.name || context.device?.serial,
-							grantState,
 							permissionStatus,
 							isAppInstalled,
 							onGrant: () => {

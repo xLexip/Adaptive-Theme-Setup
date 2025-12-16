@@ -61,21 +61,6 @@ const AppInstalledChip = ({installed}: { installed: boolean | null }): ReactNode
 	return <StatusChip tone="error">{t('steps.grantPermission.appInstalledStatus.notInstalled')}</StatusChip>
 }
 
-const GrantedActions = ({onRateApp}: { onRateApp: () => void }) => {
-	const {t} = useI18n()
-
-	const handleOpenAbout = () => {
-		window.open('https://github.com/xLexip/Adaptive-Theme', '_blank', 'noreferrer')
-	}
-
-	return (
-		<>
-			<md-outlined-button onClick={handleOpenAbout}>{t('steps.grantPermission.actions.starOnGithub')}</md-outlined-button>
-			<md-outlined-button onClick={onRateApp}>{t('steps.grantPermission.actions.rateApp')}</md-outlined-button>
-		</>
-	)
-}
-
 const PendingActions = ({
 							canGrant,
 							isAppInstalled,

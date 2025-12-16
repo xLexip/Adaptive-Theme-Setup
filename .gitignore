@@ -25,3 +25,5 @@ dist-ssr
 
 # Local Firebase config (secrets)
 src/firebaseConfig.local.ts
+
+.firebase/
