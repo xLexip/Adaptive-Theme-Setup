@@ -1,6 +1,21 @@
 import {createContext, type ReactNode, useContext, useEffect, useMemo, useState} from 'react';
-import {en} from './en';
 import {de} from './de';
+import {en} from './en';
+import {es} from './es';
+import {fr} from './fr';
+import {hi} from './hi';
+import {id} from './id';
+import {it} from './it';
+import {ja} from './ja';
+import {ko} from './ko';
+import {pl} from './pl';
+import {ptBR} from './pt-BR';
+import {ptPT} from './pt-PT';
+import {ru} from './ru';
+import {tr} from './tr';
+import {uk} from './uk';
+import {vi} from './vi';
+import {zhCN} from './zh-CN';
 
 export type TranslationParams = Record<string, string | number | undefined>;
 
@@ -16,18 +31,67 @@ const I18nContext = createContext<I18nContextValue | undefined>(undefined);
 
 // Use a looser value type for translations to avoid requiring identical string literal
 // types between different language modules (en/de). Keep Locale as a literal union.
-type Locale = 'en' | 'de';
+type Locale =
+	| 'de'
+	| 'en'
+	| 'es'
+	| 'fr'
+	| 'hi'
+	| 'id'
+	| 'it'
+	| 'ja'
+	| 'ko'
+	| 'pl'
+	| 'pt-BR'
+	| 'pt-PT'
+	| 'ru'
+	| 'tr'
+	| 'uk'
+	| 'vi'
+	| 'zh-CN';
+
 type TranslationRecord = Record<string, any>;
+
 const translations: { [K in Locale]: TranslationRecord } = {
-	en,
 	de,
+	en,
+	es,
+	fr,
+	hi,
+	id,
+	it,
+	ja,
+	ko,
+	pl,
+	'pt-BR': ptBR,
+	'pt-PT': ptPT,
+	ru,
+	tr,
+	uk,
+	vi,
+	'zh-CN': zhCN,
 };
 
 export type {Locale};
 
 export const SUPPORTED_LOCALES: Record<Locale, { label: string }> = {
-	en: {label: 'English'},
 	de: {label: 'Deutsch'},
+	en: {label: 'English'},
+	es: {label: 'Español'},
+	fr: {label: 'Français'},
+	hi: {label: 'हिन्दी'},
+	id: {label: 'Bahasa Indonesia'},
+	it: {label: 'Italiano'},
+	ja: {label: '日本語'},
+	ko: {label: '한국어'},
+	pl: {label: 'Polski'},
+	'pt-BR': {label: 'Português (Brasil)'},
+	'pt-PT': {label: 'Português'},
+	ru: {label: 'Русский'},
+	tr: {label: 'Türkçe'},
+	uk: {label: 'Українська'},
+	vi: {label: 'Tiếng Việt'},
+	'zh-CN': {label: '中文'},
 };
 
 function detectInitialLocale(): Locale {
@@ -50,6 +114,9 @@ function detectInitialLocale(): Locale {
 		if (navigator.language) candidates.push(navigator.language);
 
 		for (const raw of candidates) {
+			if (!raw) continue;
+			// Try full tag first (e.g. 'zh-CN'), then fallback to base language (e.g. 'zh')
+			if (raw in translations) return raw as Locale;
 			const base = raw.toLowerCase().split('-')[0];
 			if (base in translations) return base as Locale;
 		}
