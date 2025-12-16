@@ -1,11 +1,13 @@
+const appName = 'Adaptive Theme';
+
 export const de = {
 	app: {
-		title: 'Adaptive Theme: Einmalige Einrichtung',
+		name: appName,
+		title: `${appName}: Einrichtung`,
 		snackbar: {
 			playStoreOpened: 'Play Store wurde auf deinem Gerät geöffnet.',
 		},
 		footer: {
-			githubAriaLabel: 'Öffne die Adaptive Theme README auf GitHub',
 			githubAlt: 'GitHub',
 		},
 		languageLabel: 'Sprache',
@@ -15,23 +17,20 @@ export const de = {
 			headline: 'Vorbereitung',
 			intro: {
 				general:
-					'Installiere Adaptive Theme auf deinem Android-Gerätund öffne diese Webseite auf einem anderen Gerät.',
+					`Installiere ${appName} auf deinem Android-Gerät und öffne diese Webseite auf einem anderen Gerät.`,
 				explanation:
-					"Standardmäßig verhindert Android, dass Apps Geräteeinstellungen wie den Dark Mode ändern. Um diese Funktion freizuschalten, müssen wir eine spezielle" +
-					" Berechtigung erteilen. Dies ist sicher und vollständig rückgängig zu machen, es erlaubt der App nur, Einstellungen wie den Dark Mode umzuschalten.",
-				howToGrantLine1: 'Starte die Einrichtung in der Adaptive Theme App auf deinem Zielgerät.',
+					"Android hindert Apps daran, Systemeinstellungen wie den Dark Mode automatisch umzuschalten. Um diese Funktion freizuschalten, musst du eine einmalige Berechtigung erteilen. Dies ist sicher, umkehrbar und gewährt keinen Zugriff auf deine Daten.",
+				howToGrantLine1: `Starte die Einrichtung in der ${appName} App.`,
 				whyLabel: 'Warum ist das erforderlich?',
 			},
-			list: {
-				// list items intentionally removed
-			},
+			list: {},
 			actions: {
 				playStoreLabel: 'Play Store öffnen',
-				continue: 'Weiter',
+				continue: 'Einrichtung starten',
 			},
 		},
 		connection: {
-			headline: 'USB-Gerät verbinden',
+			headline: 'Gerät verbinden',
 			button: {
 				default: 'Gerät auswählen',
 				connecting: 'Verbinde…',
@@ -39,44 +38,45 @@ export const de = {
 			status: {
 				connecting: 'Verbinde…',
 				connected: 'Verbunden mit {{deviceName}}',
-				error: 'Verbindung fehlgeschlagen. Bitte prüfe das Kabel.',
+				error: 'Verbindung fehlgeschlagen. Bitte Kabel prüfen.',
 				noDevice: 'Kein Gerät ausgewählt',
 			},
 			body: {
 				line1:
-					'Klicke auf den Button unten und wähle dein Smartphone aus der Liste.',
+					'Verbinde dein Smartphone per USB mit diesem Gerät und wähle es unten aus.',
 				line2:
-					'⚠️ Schau auf dein Smartphone-Display! Ein Popup wird erscheinen, um die Verbindung zu bestätigen.',
+					'Nach der Auswahl erscheint ein Popup auf deinem Android-Gerät, um die Verbindung zu bestätigen.',
 			},
 			cantFind: {
-				title: 'Gerät nicht gefunden?',
+				title: "Gerät nicht gefunden?",
 				body:
-					'Wähle bei deinem Smartphone im USB-Modus „Dateiübertragung“ statt „Nur Laden“. Stelle außerdem sicher, dass das Kabel Datenübertragung unterstützt. Falls das Gerät immer noch nicht angezeigt wird, versuche einen anderen Computer oder eine alternative Einrichtungs-Methode in der Adaptive Theme App.',
+					'Stelle sicher, dass dein Kabel Datenübertragung unterstützt (manche sind nur Ladekabel). ' +
+					'Wechsle in den Benachrichtigungen deines Telefons den USB-Modus von "Laden" zu "Datenübertragung". ' +
+					`Wenn es immer noch fehlschlägt, versuche einen anderen Browser oder die alternative Einrichtungsmethode in ${appName}.`,
 			},
 		},
 		grantPermission: {
 			headline: 'Einrichtung abschließen',
 			permissionStatus: {
-				granted: 'Berechtigung aktiv',
+				granted: 'Berechtigung erteilt',
 				missing: 'Berechtigung fehlt',
 				checking: 'Prüfe Status…',
 			},
 			appInstalledStatus: {
-				checking: 'Suche App…',
+				checking: 'Suche nach App…',
 				installed: 'App gefunden',
 				notInstalled: 'App nicht installiert',
 			},
 			actions: {
-				installApp: 'Adaptive Theme installieren',
+				installApp: `${appName} installieren`,
 				executing: 'Wende an…',
 				grantPermission: 'Berechtigung erteilen',
-				starOnGithub: 'Über Adaptive Theme',
-				rateApp: 'Gefällt es dir? Bewerte uns mit 5 Sternen! :]',
+				rateApp: 'Hilf uns mit einer Bewertung! :]',
 			},
 			chips: {
 				connectedTo: 'Verbunden mit {{deviceName}}',
 			},
-			allDone: 'Erfolg! Du kannst dein Smartphone nun trennen und Adaptive Theme konfigurieren.',
+			allDone: `Das war's! Du kannst dein Telefon jetzt trennen und ${appName} konfigurieren.`,
 		},
 	},
 	layout: {
@@ -88,10 +88,10 @@ export const de = {
 	unsupportedBrowser: {
 		title: 'Browser nicht unterstützt',
 		description:
-			'Dieses Tool benötigt einen Browser mit WebUSB-Unterstützung. Bitte nutze Google Chrome, Microsoft Edge, Brave oder Opera auf einem PC/Laptop.',
+			'Dieses Tool erfordert WebUSB-Unterstützung. Bitte verwende einen Chromium-basierten Browser wie Google Chrome, Microsoft Edge, Brave oder Opera.',
 	},
 	commandDetails: {
-		intro: 'Der folgende Befehl wird ausgeführt, damit die App Geräteeinstellungen wie den Dark Mode automatisch umschalten kann.',
-		outro: 'Dies ist sicher und vollständig rückgängig zu machen. Es werden keine Daten gelesen und keine dauerhaften Änderungen am Gerät vorgenommen. Das Deinstallieren der App hebt die Änderung auf und entzieht die Berechtigung.',
+		intro: 'Der folgende Befehl wird ausgeführt, um der App zu erlauben, Systemeinstellungen wie den Dark Mode automatisch umzuschalten.',
+		outro: 'Dies ist sicher und vollständig umkehrbar. Es werden keine Daten gelesen und keine dauerhaften Änderungen am Gerät vorgenommen. Die Deinstallation der App macht den Vorgang rückgängig und widerruft die Berechtigung.',
 	},
 } as const;

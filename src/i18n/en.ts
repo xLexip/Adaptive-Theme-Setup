@@ -50,9 +50,9 @@ export const en = {
 			cantFind: {
 				title: "Device not found?",
 				body:
-					'1. Ensure your cable supports data transfer (some are charge-only).\n' +
-					'2. On your phone\'s notifications, switch USB mode from "Charging" to "Data Transfer"\n' +
-					`3. If it still fails, try a different browser or the an alternative setup method in ${appName}.`,
+					'Ensure your cable supports data transfer (some are charge-only). ' +
+					'On your phone\'s notifications, switch USB mode from "Charging" to "Data Transfer". ' +
+					`If it still fails, try a different browser or the an alternative setup method in ${appName}.`,
 			},
 		},
 		grantPermission: {
@@ -71,8 +71,7 @@ export const en = {
 				installApp: `Install ${appName}`,
 				executing: 'Applying…',
 				grantPermission: 'Grant Permission',
-				starOnGithub: 'Star on GitHub',
-				rateApp: 'Enjoying it? Rate us 5 stars! :]',
+				rateApp: 'Like it? Help us with a rating! :]',
 			},
 			chips: {
 				connectedTo: 'Connected to {{deviceName}}',

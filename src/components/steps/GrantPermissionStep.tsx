@@ -171,7 +171,7 @@ export const GrantPermissionStep = ({
 					<div className="grant-permission__buttons" style={{textAlign: 'center'}}>
 						<md-outlined-button style={{display: 'inline-block', width: 'auto', margin: '0 12px'}}
 											onClick={() => window.open('https://github.com/xLexip/Adaptive-Theme', '_blank', 'noreferrer')}>
-							{t('steps.grantPermission.actions.starOnGithub')}
+							GitHub Repo
 						</md-outlined-button>
 						<md-outlined-button style={{display: 'inline-block', width: 'auto', margin: '0 12px'}} onClick={onRateApp}>
 							{t('steps.grantPermission.actions.rateApp')}
