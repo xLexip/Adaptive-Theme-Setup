@@ -79,12 +79,10 @@
 	gap: 12px;
 }
 
-/* Ensure right actions sit at the far right edge when there is no left content */
 .step-card__actions-right {
 	margin-left: auto;
 }
 
-/* Center grant-permission actions when the actions container is in centered mode */
 .step-card__actions.step-card__actions--centered .grant-permission__more-actions {
 	margin-left: 0;
 	margin-right: 0;
@@ -96,7 +94,6 @@
 	margin: 0;
 }
 
-/* Helper for GrantPermissionStep to stack chips vertically */
 .grant-permission__chips {
 	display: flex;
 	flex-direction: column;
@@ -111,11 +108,11 @@
 }
 
 .grant-permission__more-actions {
-	display: inline-flex; /* size to content so centering works */
-	gap: 16px; /* increased spacing between buttons */
-	justify-content: center; /* center the buttons horizontally */
-	width: auto; /* size to content */
-	margin: 0; /* remove auto margins that interfered */
+	display: inline-flex;
+	gap: 16px;
+	justify-content: center;
+	width: auto;
+	margin: 0;
 	align-self: center;
 }
 
@@ -124,11 +121,10 @@
 	gap: 20px;
 	align-items: center;
 	justify-content: center;
-	margin: 0 auto; /* ensure wrapper centered */
+	margin: 0 auto;
 	width: auto;
 }
 
-/* Robust fallback: make any direct child render inline-block so centering works even if custom elements style themselves */
 .grant-permission__buttons > * {
 	display: inline-block !important;
 	width: auto !important;
@@ -154,12 +150,10 @@
 	align-items: center;
 	justify-content: center;
 	border-radius: 50%;
-	/* Reuse success chip animation for a pulsing halo */
 	animation: chip-success 1.8s var(--motion-ease-standard) infinite alternate;
 }
 
 .all-done__icon svg {
-	/* Ensure the svg uses currentColor for fill */
 	display: block;
 }
 
@@ -180,7 +174,6 @@
 	z-index: 10;
 }
 
-/* Hover glow for primary (filled) buttons */
 .step-card__actions md-filled-button,
 .grant-permission__actions md-filled-button,
 .grant-permission__more-actions md-filled-button {
@@ -201,13 +194,12 @@
 
 .step-card__actions-center {
 	display: flex;
-	gap: 20px; /* slightly larger gap */
+	gap: 20px;
 	justify-content: center;
 	width: 100%;
 	align-items: center;
 }
 
-/* Ensure direct children (custom buttons) size to content and don't stretch */
 .step-card__actions-center > * {
 	display: inline-flex !important;
 	width: auto !important;

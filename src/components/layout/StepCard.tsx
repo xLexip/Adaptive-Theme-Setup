@@ -44,7 +44,6 @@ export const StepCard = ({
 
 	const effectiveBackLabel = backLabel ?? t('layout.stepCard.back')
 
-	// If there is only `actions` and no onBack or actionsRight, center the actions
 	const onlyActionsCentered = !!actions && !onBack && !actionsRight
 
 	return (

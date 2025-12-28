@@ -133,7 +133,6 @@ export const GrantPermissionStep = ({
 		)
 	}
 
-	// For reliable centering we'll render the post-grant action buttons in the body
 	const actions = undefined
 
 	const actionsRight =

@@ -1,7 +1,7 @@
 .language-picker {
 	display: inline-flex;
 	align-items: center;
-	position: relative; /* anchor for absolute menu */
+	position: relative;
 }
 
 .language-picker__button {
@@ -29,8 +29,6 @@
 	list-style: none;
 	min-width: 160px;
 	max-width: 90vw;
-
-	/* Prevent overflowing the viewport vertically */
 	max-height: calc(100vh - 96px);
 	overflow-y: auto;
 	-webkit-overflow-scrolling: touch;
@@ -57,7 +55,6 @@
 	font-weight: 600;
 }
 
-/* Small scrollbar styling for WebKit */
 .language-picker__menu::-webkit-scrollbar {
 	width: 8px;
 }

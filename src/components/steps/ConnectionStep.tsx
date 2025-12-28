@@ -72,7 +72,7 @@ export const ConnectionStep = ({state, error, deviceName, onConnect, onBack, exp
 				{t('steps.connection.body.line2')}
 			</p>
 
-			{/* Collapsible help for missing devices */}
+			{}
 			<div style={{height: 8}} aria-hidden="true"/>
 
 			<details className="connection-cant-find" aria-labelledby="connection-cant-find-summary">
