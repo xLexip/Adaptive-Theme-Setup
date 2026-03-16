@@ -1,5 +1,5 @@
 import {logEvent} from 'firebase/analytics';
-import {analyticsPromise} from '../firebaseApp';
+import {analyticsPromise} from '../services/firebase/firebaseApp';
 import {useCallback} from 'react';
 
 export const useAnalytics = () => {
