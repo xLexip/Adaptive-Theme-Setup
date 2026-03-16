@@ -1,6 +1,12 @@
 import { useCallback, useState } from 'react'
 import { CommandExecutionStatus, type CommandExecutionState } from '../types/adb'
-import { GRANT_PERMISSION_COMMAND, CHECK_PERMISSION_COMMAND, ADAPTIVE_THEME_PACKAGE } from '../constants/commands'
+import {
+  GRANT_PERMISSION_COMMAND,
+  CHECK_PERMISSION_COMMAND,
+  ADAPTIVE_THEME_PACKAGE,
+  APP_OPS_ALLOW_BACKGROUND_COMMAND,
+  DEVICE_IDLE_WHITELIST_COMMAND,
+} from '../constants/commands'
 import type { Adb } from '@yume-chan/adb'
 
 const defaultState: CommandExecutionState = {
@@ -15,30 +21,32 @@ export const usePermissionGrant = (adb?: Adb) => {
   const [statusState, setStatusState] = useState<CommandExecutionState>(defaultState)
   const [isAppInstalled, setIsAppInstalled] = useState<boolean | null>(null)
 
-  const execute = useCallback(async (command: string, setter: typeof setGrantState) => {
-    if (!adb) {
-      setter({
-        status: CommandExecutionStatus.ERROR,
-        message: 'No device connected.',
-      })
-      return
-    }
-
-    setter({ status: CommandExecutionStatus.RUNNING })
-    try {
-      const output = await runCommand(adb, command)
-      setter({ status: CommandExecutionStatus.SUCCESS, output })
-    } catch (error) {
-      setter({
-        status: CommandExecutionStatus.ERROR,
-        message: error instanceof Error ? error.message : 'Command failed.',
-      })
-    }
-  }, [adb])
-
   const grantWriteSecureSettings = useCallback(
-    () => execute(GRANT_PERMISSION_COMMAND, setGrantState),
-    [execute],
+    async () => {
+      if (!adb) {
+        setGrantState({
+          status: CommandExecutionStatus.ERROR,
+          message: 'No device connected.',
+        })
+        return
+      }
+
+      setGrantState({ status: CommandExecutionStatus.RUNNING })
+      try {
+        const grantOutput = await runCommand(adb, GRANT_PERMISSION_COMMAND)
+
+        await runCommand(adb, APP_OPS_ALLOW_BACKGROUND_COMMAND).catch(() => '')
+        await runCommand(adb, DEVICE_IDLE_WHITELIST_COMMAND).catch(() => '')
+
+        setGrantState({ status: CommandExecutionStatus.SUCCESS, output: grantOutput })
+      } catch (error) {
+        setGrantState({
+          status: CommandExecutionStatus.ERROR,
+          message: error instanceof Error ? error.message : 'Command failed.',
+        })
+      }
+    },
+    [adb],
   )
 
   const checkPermissionStatus = useCallback(async () => {
