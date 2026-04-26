@@ -25,33 +25,25 @@ export const useAppLogic = () => {
 
 	const [currentStep, setCurrentStep] = useState(1)
 	const [snackbarMessage, setSnackbarMessage] = useState<string | null>(null)
-	// Disable the Continue button on the first card for the first 3 seconds
-	const [firstContinueDisabled, setFirstContinueDisabled] = useState(true)
+	const [firstContinueDelayElapsed, setFirstContinueDelayElapsed] = useState(false)
 	const launchedRef = useRef(false)
+	const effectiveCurrentStep =
+		context.state === AdbConnectionState.CONNECTED ? Math.max(currentStep, 3) : currentStep
+	const firstContinueDisabled = effectiveCurrentStep === 1 && !firstContinueDelayElapsed
 
 	const webUsbUnsupported =
 		context.state === AdbConnectionState.ERROR && context.error?.includes('WebUSB')
 
 	useEffect(() => {
-		let timer: number | undefined
-		if (currentStep === 1) {
-			// start disabled and enable after 3 seconds
-			setFirstContinueDisabled(true)
-			timer = window.setTimeout(() => setFirstContinueDisabled(false), 3000)
-		} else {
-			setFirstContinueDisabled(false)
-		}
-		return () => {
-			if (timer) clearTimeout(timer)
-		}
-	}, [currentStep])
+		const timer = window.setTimeout(() => setFirstContinueDelayElapsed(true), 3000)
+		return () => clearTimeout(timer)
+	}, [])
 
 	useEffect(() => {
 		if (context.state === AdbConnectionState.CONNECTED) {
 			logEvent('web_device_connected', {
 				device_name: context.device?.name || context.device?.serial,
 			})
-			setCurrentStep((prev) => (prev < 3 ? 3 : prev))
 		}
 	}, [context.state, context.device, logEvent])
 
@@ -77,21 +69,21 @@ export const useAppLogic = () => {
 	}, [permissionStatus.status, launchAdaptiveTheme, logEvent])
 
 	useEffect(() => {
-		if (currentStep === 3) {
+		if (effectiveCurrentStep === 3) {
 			checkPermissionStatus()
 			checkAppInstalled()
 		}
-	}, [currentStep, checkPermissionStatus, checkAppInstalled])
+	}, [effectiveCurrentStep, checkPermissionStatus, checkAppInstalled])
 
 	useEffect(() => {
-		if (currentStep !== 3) return
+		if (effectiveCurrentStep !== 3) return
 
 		const intervalId = globalThis.setInterval(() => {
 			checkAppInstalled()
 		}, 3000)
 
 		return () => globalThis.clearInterval(intervalId)
-	}, [currentStep, checkAppInstalled])
+	}, [effectiveCurrentStep, checkAppInstalled])
 
 	const goToStep = (step: number) => setCurrentStep(step)
 
@@ -128,7 +120,7 @@ export const useAppLogic = () => {
 		context,
 		connect,
 		adb,
-		currentStep,
+		currentStep: effectiveCurrentStep,
 		snackbarMessage,
 		firstContinueDisabled,
 		webUsbUnsupported,

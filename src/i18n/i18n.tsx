@@ -1,3 +1,4 @@
+/* eslint-disable react-refresh/only-export-components */
 import {createContext, type ReactNode, useContext, useEffect, useMemo, useState} from 'react';
 import {de} from './de';
 import {en} from './en';
@@ -50,7 +51,8 @@ type Locale =
 	| 'vi'
 	| 'zh-CN';
 
-type TranslationRecord = Record<string, any>;
+type TranslationValue = string | TranslationRecord;
+type TranslationRecord = Record<string, TranslationValue>;
 
 const translations: { [K in Locale]: TranslationRecord } = {
 	de,
@@ -108,8 +110,9 @@ function detectInitialLocale(): Locale {
 	// Browser language
 	if (typeof navigator !== 'undefined') {
 		const candidates: string[] = [];
-		if (Array.isArray((navigator as any).languages)) {
-			candidates.push(...((navigator as any).languages as string[]));
+		const languageList = (navigator as Navigator & { languages?: readonly string[] }).languages;
+		if (Array.isArray(languageList)) {
+			candidates.push(...languageList);
 		}
 		if (navigator.language) candidates.push(navigator.language);
 
@@ -125,9 +128,9 @@ function detectInitialLocale(): Locale {
 	return 'en';
 }
 
-function resolveKey(dict: Record<string, any>, key: string): string | undefined {
+function resolveKey(dict: TranslationRecord, key: string): string | undefined {
 	const parts = key.split('.');
-	let current: any = dict;
+	let current: TranslationValue | undefined = dict;
 	for (const part of parts) {
 		if (current && typeof current === 'object' && part in current) {
 			current = current[part];

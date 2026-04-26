@@ -1,7 +1,6 @@
 // Local-only Firebase config. Do NOT commit this file.
 // Create your own copy from this template and add it to .gitignore.
 
-// eslint-disable-next-line @typescript-eslint/consistent-type-definitions
 export type FirebaseConfig = {
 	apiKey: string;
 	authDomain: string;

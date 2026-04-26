@@ -23,7 +23,6 @@ const StatusChipContent = ({
 						   }: {
 	state: AdbConnectionState
 	deviceName?: string
-	// eslint-disable-next-line react/boolean-prop-naming
 	error?: string
 }): ReactNode => {
 	const {t} = useI18n()
