@@ -51,8 +51,9 @@ type Locale =
 	| 'vi'
 	| 'zh-CN';
 
-type TranslationValue = string | TranslationRecord;
-type TranslationRecord = Record<string, TranslationValue>;
+interface TranslationRecord {
+	[key: string]: string | TranslationRecord;
+}
 
 const translations: { [K in Locale]: TranslationRecord } = {
 	de,
@@ -130,7 +131,7 @@ function detectInitialLocale(): Locale {
 
 function resolveKey(dict: TranslationRecord, key: string): string | undefined {
 	const parts = key.split('.');
-	let current: TranslationValue | undefined = dict;
+	let current: string | TranslationRecord | undefined = dict;
 	for (const part of parts) {
 		if (current && typeof current === 'object' && part in current) {
 			current = current[part];
