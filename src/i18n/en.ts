@@ -51,8 +51,8 @@ export const en = {
 				title: "Device not found?",
 				body:
 					'Ensure your cable supports data transfer (some are charge-only). ' +
-					'On your phone\'s notifications, switch USB mode from "Charging" to "Data Transfer". ' +
-					`If it still fails, try a different browser or the an alternative setup method in ${appName}.`,
+					'In your phone\'s notifications, switch USB mode from "Charging" to "Data Transfer". ' +
+					`If it still fails, try a different browser or an alternative setup method in ${appName}.`,
 			},
 		},
 		grantPermission: {
