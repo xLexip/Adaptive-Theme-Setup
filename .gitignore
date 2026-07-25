@@ -22,3 +22,8 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# Local Firebase config (secrets)
+src/services/firebase/firebaseConfig.local.ts
+**/firebaseConfig.local.ts
+.firebase/

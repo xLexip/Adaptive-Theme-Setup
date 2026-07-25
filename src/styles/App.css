@@ -1,0 +1,278 @@
+#root {
+	width: 100%;
+}
+
+.app-shell {
+	min-height: 100vh;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	padding: 48px 16px 8px; /* move footer even lower (closer to viewport bottom) */
+	background: var(--md-sys-color-surface);
+	color: var(--md-sys-color-on-surface);
+	position: relative;
+	isolation: isolate;
+	overflow: hidden;
+}
+
+/* Footer to hold stationary bottom controls (centered GitHub only) */
+.app-footer {
+	width: 100%;
+	display: flex;
+	justify-content: center; /* center the single GitHub button */
+	align-items: center;
+	padding: 8px 8px 0px;
+	margin-top: auto; /* push footer to bottom of the shell */
+}
+
+.app-github-button {
+	/* no longer fixed; sits in footer */
+	z-index: 10;
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	padding: 6px;
+	border-radius: 999px;
+	color: var(--md-sys-color-on-surface-variant);
+	background-color: color-mix(in srgb, var(--md-sys-color-surface) 90%, transparent);
+}
+
+.app-github-button:hover {
+	background-color: color-mix(in srgb, var(--md-sys-color-surface) 100%, transparent);
+}
+
+.app-github-button__icon {
+	width: 18px;
+	height: 18px;
+}
+
+.app-content {
+	width: 100%;
+	max-width: 760px;
+	display: flex;
+	flex-direction: column;
+	gap: 24px;
+}
+
+.step-card {
+	width: 100%;
+	position: relative;
+	z-index: 1;
+}
+
+.preparation-list {
+	padding-left: 20px;
+	margin: 0;
+	display: flex;
+	flex-direction: column;
+	gap: 12px;
+	color: var(--md-sys-color-on-surface);
+}
+
+.preparation-list strong {
+	color: var(--md-sys-color-primary);
+}
+
+.command-details code,
+.command-output,
+code {
+	display: inline-flex;
+	width: 100%;
+	margin-top: 12px;
+	padding: 12px 16px;
+	border-radius: 14px;
+	background: var(--md-sys-color-surface-container-highest);
+	color: var(--md-sys-color-on-surface);
+	font-size: 0.95rem;
+	overflow-x: auto;
+}
+
+.command-output {
+	background: var(--md-sys-color-surface-container);
+}
+
+.unsupported-browser-card {
+	display: block;
+	padding: 32px;
+	border-radius: 28px;
+	background: var(--md-sys-color-surface-container-highest);
+	color: var(--md-sys-color-on-surface);
+}
+
+.card-actions {
+	margin-top: 24px;
+	display: flex;
+	flex-wrap: wrap;
+	gap: 12px;
+}
+
+.card-actions md-filled-button,
+.card-actions md-outlined-button {
+	transition: box-shadow var(--motion-duration-short) var(--motion-ease-standard);
+}
+
+.card-actions md-filled-button:hover,
+.card-actions md-outlined-button:hover {
+	/* Removed elevation transform; keep glow only */
+	box-shadow: 0 8px 20px color-mix(in srgb, var(--md-sys-color-primary) 20%, transparent);
+}
+
+.grant-permission__about {
+	margin-top: 16px;
+	display: flex;
+	justify-content: flex-end;
+}
+
+/* Inline Play Store link used inside StepCard actions */
+.app-playstore-inline {
+	display: inline-flex;
+	align-items: center;
+	gap: 6px;
+	padding: 8px 12px;
+	border-radius: 12px;
+	text-decoration: none;
+	font-weight: 600;
+	color: var(--md-sys-color-on-surface-variant);
+	background: color-mix(in srgb, var(--md-sys-color-surface-container-highest) 80%, transparent);
+}
+
+.app-playstore-inline:hover {
+	background: color-mix(in srgb, var(--md-sys-color-surface-container-highest) 100%, transparent);
+}
+
+.app-playstore-inline:focus-visible {
+	outline: 3px solid var(--md-sys-color-primary);
+	outline-offset: 2px;
+}
+
+.app-playstore-inline__arrow {
+	font-size: 0.9rem;
+}
+
+.language-picker {
+	position: relative;
+	display: inline-flex;
+	align-items: center;
+	gap: 0.5rem;
+	margin-bottom: 0.125rem;
+}
+
+.language-picker__title {
+	font-size: 0.85rem;
+	font-weight: 600;
+}
+
+.language-picker__button {
+	display: inline-flex;
+	align-items: center;
+	gap: 0.35rem;
+	padding: 4px 10px;
+	border-radius: 999px;
+	border: 1px solid color-mix(in srgb, var(--md-sys-color-outline) 80%, transparent);
+	background: color-mix(in srgb, var(--md-sys-color-surface-container-highest) 70%, transparent);
+	color: var(--md-sys-color-on-surface-variant, #5f6368);
+	font-size: 0.8rem;
+	cursor: pointer;
+}
+
+.language-picker__button:hover {
+	background: color-mix(in srgb, var(--md-sys-color-surface-container-highest) 100%, transparent);
+}
+
+.language-picker__button:focus-visible {
+	outline: 2px solid var(--md-sys-color-primary);
+	outline-offset: 2px;
+}
+
+.language-picker__icon {
+	font-size: 0.9rem;
+}
+
+.language-picker__current {
+	white-space: nowrap;
+}
+
+.language-picker__menu {
+	position: absolute;
+	right: 0;
+	margin-top: 4px;
+	padding: 4px;
+	border-radius: 12px;
+	border: 1px solid color-mix(in srgb, var(--md-sys-color-outline) 80%, transparent);
+	background: var(--md-sys-color-surface-container-highest);
+	box-shadow: 0 8px 20px color-mix(in srgb, var(--md-sys-color-shadow, #000) 20%, transparent);
+	list-style: none;
+	min-width: 120px;
+	z-index: 20;
+}
+
+.language-picker__menu-item {
+	width: 100%;
+	padding: 4px 10px;
+	text-align: left;
+	border-radius: 8px;
+	border: none;
+	background: transparent;
+	color: inherit;
+	font-size: 0.8rem;
+	cursor: pointer;
+}
+
+.language-picker__menu-item:hover {
+	background: color-mix(in srgb, var(--md-sys-color-primary) 10%, transparent);
+}
+
+.language-picker__menu-item--active {
+	background: color-mix(in srgb, var(--md-sys-color-primary) 18%, transparent);
+	color: var(--md-sys-color-on-primary-container, inherit);
+}
+
+.preparation-language-picker-row {
+	display: flex;
+	justify-content: flex-start;
+}
+
+@keyframes shell-fade {
+	from {
+		opacity: 0;
+		transform: translateY(16px);
+	}
+	to {
+		opacity: 1;
+		transform: translateY(0);
+	}
+}
+
+:root {
+	--motion-duration-short: 180ms;
+	--motion-duration-medium: 320ms;
+	--motion-ease-standard: cubic-bezier(0.2, 0, 0, 1);
+}
+
+@media (prefers-reduced-motion: reduce) {
+	:root {
+		--motion-duration-short: 0ms;
+		--motion-duration-medium: 0ms;
+	}
+}
+
+@media (max-width: 720px) {
+	.app-shell {
+		padding: 32px 16px 24px; /* keep reduced bottom padding on mobile */
+	}
+
+	.unsupported-browser-card {
+		padding: 24px;
+	}
+
+	.app-header h1 {
+		font-size: 1.9rem;
+	}
+}
+
+@media (max-width: 480px) {
+	/* stack footer contents on very small screens (single centered item stays centered) */
+	.app-footer {
+		padding: 8px 12px 12px;
+	}
+}

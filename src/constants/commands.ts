@@ -1,0 +1,16 @@
+export const ADAPTIVE_THEME_PACKAGE = 'dev.lexip.hecate'
+export const WRITE_SECURE_SETTINGS_PERMISSION =
+  'android.permission.WRITE_SECURE_SETTINGS'
+
+export const GRANT_PERMISSION_COMMAND =
+  `pm grant ${ADAPTIVE_THEME_PACKAGE} ${WRITE_SECURE_SETTINGS_PERMISSION}`
+
+export const APP_OPS_ALLOW_BACKGROUND_COMMAND =
+  `cmd appops set ${ADAPTIVE_THEME_PACKAGE} RUN_ANY_IN_BACKGROUND allow`
+
+export const DEVICE_IDLE_WHITELIST_COMMAND =
+  `dumpsys deviceidle whitelist +${ADAPTIVE_THEME_PACKAGE}`
+
+export const CHECK_PERMISSION_COMMAND = `dumpsys package ${ADAPTIVE_THEME_PACKAGE} | grep WRITE_SECURE_SETTINGS`
+
+
