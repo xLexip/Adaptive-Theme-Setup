@@ -61,14 +61,13 @@ jobs:
   deploy:
     name: Deploy to Firebase Hosting
     needs: [build, lint]
-    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+    if: (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/develop') && github.event_name == 'push'
     runs-on: ubuntu-latest
     permissions:
       contents: read
       deployments: write
     environment:
-      name: production
-      url: https://lexip.dev/setup
+      name: ${{ github.ref == 'refs/heads/main' && 'production' || 'preview' }}
     steps:
       - uses: actions/checkout@v7
 
@@ -83,5 +82,5 @@ jobs:
         with:
           repoToken: ${{ secrets.GITHUB_TOKEN }}
           firebaseServiceAccount: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_DEV_LEXIP_HECATE }}
-          channelId: live
+          channelId: ${{ github.ref == 'refs/heads/main' && 'live' || 'develop' }}
           projectId: dev-lexip-hecate
