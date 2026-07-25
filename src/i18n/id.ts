@@ -45,7 +45,7 @@ export const id = {
 				line1:
 					'Hubungkan ponsel Anda ke perangkat ini melalui USB dan pilih di bawah ini.',
 				line2:
-					'Setelah memilih perangkat Anda, popup akan muncul di perangkat Android Anda untuk mengonfirmasi koneksi.',
+					'Setelah memilih perangkat Anda, popup akan muncul di perangkat Android Anda untuk mengonfirmasi koneksi. Popup mungkin hanya terlihat jika perangkat tidak terkunci.',
 			},
 			cantFind: {
 				title: "Perangkat tidak ditemukan?",

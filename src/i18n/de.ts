@@ -45,7 +45,7 @@ export const de = {
 				line1:
 					'Verbinde dein Smartphone per USB mit diesem Gerät und wähle es unten aus.',
 				line2:
-					'Nach der Auswahl erscheint ein Popup auf deinem Android-Gerät, um die Verbindung zu bestätigen.',
+					'Nach der Auswahl erscheint ein Popup auf deinem Android-Gerät, um die Verbindung zu bestätigen. Das Popup ist möglicherweise nur sichtbar, wenn das Gerät entsperrt ist.',
 			},
 			cantFind: {
 				title: "Gerät nicht gefunden?",

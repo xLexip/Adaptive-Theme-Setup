@@ -45,7 +45,7 @@ export const ptBR = {
 				line1:
 					'Conecte seu celular a este dispositivo via USB e selecione-o abaixo.',
 				line2:
-					'Após selecionar seu dispositivo, um pop-up aparecerá no seu Android para confirmar a conexão.',
+					'Após selecionar seu dispositivo, um pop-up aparecerá no seu Android para confirmar a conexão. O pop-up só poderá ser visível se o dispositivo estiver desbloqueado.',
 			},
 			cantFind: {
 				title: "Dispositivo não encontrado?",
