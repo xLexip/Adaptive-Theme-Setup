@@ -45,7 +45,7 @@ export const tr = {
 				line1:
 					'Telefonunuzu USB üzerinden bu cihaza bağlayın ve aşağıdan seçin.',
 				line2:
-					'Cihazınızı seçtikten sonra, bağlantıyı onaylamanız için Android cihazınızda bir açılır pencere belirecektir.',
+					'Cihazınızı seçtikten sonra, bağlantıyı onaylamanız için Android cihazınızda bir açılır pencere belirecektir. Açılır pencere yalnızca cihazın kilidi açık olduğunda görünebilir.',
 			},
 			cantFind: {
 				title: "Cihaz bulunamadı mı?",

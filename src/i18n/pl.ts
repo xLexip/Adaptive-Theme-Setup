@@ -45,7 +45,7 @@ export const pl = {
 				line1:
 					'Podłącz telefon do tego urządzenia przez USB i wybierz go poniżej.',
 				line2:
-					'Po wybraniu urządzenia na Twoim Androidzie pojawi się okienko z prośbą o potwierdzenie połączenia.',
+					'Po wybraniu urządzenia na Twoim Androidzie pojawi się okienko z prośbą o potwierdzenie połączenia. Okienko może być widoczne tylko wtedy, gdy urządzenie jest odblokowane.',
 			},
 			cantFind: {
 				title: "Nie znaleziono urządzenia?",

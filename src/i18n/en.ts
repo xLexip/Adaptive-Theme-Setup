@@ -45,7 +45,7 @@ export const en = {
 				line1:
 					'Connect your phone to this device via USB and select it below.',
 				line2:
-					'After selecting your device, a popup will appear on your Android device to confirm the connection.',
+					'After selecting your device, a pop-up appears on your Android device to confirm the connection. The pop-up may only be visible if the device is unlocked.',
 			},
 			cantFind: {
 				title: "Device not found?",

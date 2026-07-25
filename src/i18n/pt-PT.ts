@@ -45,7 +45,7 @@ export const ptPT = {
 				line1:
 					'Ligue o seu telemóvel a este dispositivo via USB e selecione-o abaixo.',
 				line2:
-					'Após selecionar o seu dispositivo, aparecerá um pop-up no seu Android para confirmar a ligação.',
+					'Após selecionar o seu dispositivo, aparecerá um pop-up no seu Android para confirmar a ligação. O pop-up só poderá estar visível se o dispositivo estiver desbloqueado.',
 			},
 			cantFind: {
 				title: "Não encontra o dispositivo?",

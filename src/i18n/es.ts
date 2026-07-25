@@ -45,7 +45,7 @@ export const es = {
 				line1:
 					'Conecta tu teléfono a este equipo vía USB y selecciónalo abajo.',
 				line2:
-					'Después de seleccionar tu dispositivo, aparecerá una ventana emergente en tu Android para confirmar la conexión.',
+					'Después de seleccionar tu dispositivo, aparecerá una ventana emergente en tu Android para confirmar la conexión. Es posible que la ventana emergente solo sea visible si el dispositivo está desbloqueado.',
 			},
 			cantFind: {
 				title: "¿No encuentras el dispositivo?",

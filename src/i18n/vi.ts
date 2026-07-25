@@ -45,7 +45,7 @@ export const vi = {
 				line1:
 					'Kết nối điện thoại của bạn với thiết bị này qua USB và chọn nó bên dưới.',
 				line2:
-					'Sau khi chọn thiết bị, một cửa sổ bật lên sẽ xuất hiện trên thiết bị Android của bạn để xác nhận kết nối.',
+					'Sau khi chọn thiết bị, một cửa sổ bật lên sẽ xuất hiện trên thiết bị Android của bạn để xác nhận kết nối. Cửa sổ bật lên chỉ có thể hiển thị nếu thiết bị đã được mở khóa.',
 			},
 			cantFind: {
 				title: "Không tìm thấy thiết bị?",

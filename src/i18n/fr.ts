@@ -45,7 +45,7 @@ export const fr = {
 				line1:
 					'Connectez votre téléphone à cet appareil via USB et sélectionnez-le ci-dessous.',
 				line2:
-					'Après avoir sélectionné votre appareil, une fenêtre contextuelle apparaîtra sur votre Android pour confirmer la connexion.',
+					'Après avoir sélectionné votre appareil, une fenêtre contextuelle apparaîtra sur votre Android pour confirmer la connexion. La fenêtre contextuelle n\'est visible que si l\'appareil est déverrouillé.',
 			},
 			cantFind: {
 				title: "Appareil introuvable ?",
