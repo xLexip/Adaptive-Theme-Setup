@@ -1,5 +1,5 @@
 {
-  "name": "hecate-permission",
+  "name": "adaptive-theme-setup",
   "private": true,
   "version": "0.0.0",
   "type": "module",
@@ -9,6 +9,9 @@
     "deploy": "firebase deploy",
     "lint": "eslint .",
     "preview": "vite preview"
+  },
+  "engines": {
+    "node": "24"
   },
   "dependencies": {
     "@material/web": "^2.4.1",
@@ -33,5 +36,10 @@
     "typescript": "~5.9.3",
     "typescript-eslint": "^8.46.3",
     "vite": "^8.0.0"
+  },
+  "allowScripts": {
+    "@firebase/util@1.15.1": true,
+    "protobufjs@7.6.5": true,
+    "re2@1.26.1": true
   }
 }

@@ -1,5 +1,5 @@
 import {initializeApp} from 'firebase/app';
-import {firebaseConfig} from './firebaseConfig.local';
+import {firebaseConfig} from './firebaseConfig';
 
 // Initialize Firebase app once at module load.
 export const firebaseApp = initializeApp(firebaseConfig);
