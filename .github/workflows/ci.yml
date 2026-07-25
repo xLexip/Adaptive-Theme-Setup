@@ -54,7 +54,7 @@ jobs:
       deployments: write
     environment:
       name: production
-      url: https://dev-lexip-hecate.web.app
+      url: https://lexip.dev/setup
     steps:
       - uses: actions/checkout@v7
 
