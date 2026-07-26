@@ -19,7 +19,7 @@ export const en = {
 				general:
 					`Install ${appName} on your Android device and open this website on another device.`,
 				explanation:
-					"Android restricts apps from toggling system settings like Dark Mode automatically. To unlock this feature, you need to grant a one-time permission. This is safe, reversible, and does not grant access to your data.",
+					`Android restricts apps from automatically toggling system settings like Dark Mode. To allow this, you need to grant the one-time permission WRITE_SECURE_SETTINGS to the app, e.g. with this website. This is completely safe and just allows the app to change system settings like the dark mode, nothing else. Uninstalling the app fully reverts the process. Additionally, both ${appName} and this setup website are open source at github.com/xLexip.`,
 				howToGrantLine1: `Start the setup in the ${appName} app.`,
 				whyLabel: 'Why is this required?',
 			},

@@ -19,7 +19,7 @@ export const tr = {
 				general:
 					`Android cihazınıza ${appName} uygulamasını yükleyin ve bu web sitesini başka bir cihazda açın.`,
 				explanation:
-					"Android, uygulamaların Karanlık Mod gibi sistem ayarlarını otomatik olarak değiştirmesini kısıtlar. Bu özelliğin kilidini açmak için tek seferlik bir izin vermeniz gerekir. Bu işlem güvenlidir, geri alınabilir ve verilerinize erişim sağlamaz.",
+					`Android, uygulamaların Karanlık Mod gibi sistem ayarlarını otomatik olarak değiştirmesini kısıtlar. Buna izin vermek için, örneğin bu web sitesi aracılığıyla uygulamaya tek seferlik WRITE_SECURE_SETTINGS izni vermeniz gerekir. Bu tamamen güvenlidir ve uygulamanın yalnızca karanlık mod gibi sistem ayarlarını değiştirmesine izin verir, başka hiçbir şeye izin vermez. Uygulamayı kaldırmak işlemi tamamen geri alır. Ayrıca, hem ${appName} hem de bu kurulum web sitesi github.com/xLexip adresinde açık kaynaklıdır.`,
 				howToGrantLine1: `Kurulumu ${appName} uygulamasında başlatın.`,
 				whyLabel: 'Bu neden gerekli?',
 			},

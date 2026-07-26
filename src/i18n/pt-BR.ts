@@ -19,7 +19,7 @@ export const ptBR = {
 				general:
 					`Instale o ${appName} no seu dispositivo Android e abra este site em outro dispositivo.`,
 				explanation:
-					"O Android restringe que aplicativos alterem configurações do sistema, como o Modo Escuro, automaticamente. Para desbloquear esse recurso, você precisa conceder uma permissão única. Isso é seguro, reversível e não concede acesso aos seus dados.",
+					`O Android restringe que aplicativos alterem configurações do sistema, como o Modo Escuro, automaticamente. Para permitir isso, você precisa conceder a permissão única WRITE_SECURE_SETTINGS ao aplicativo, por exemplo, por meio deste site. Isso é totalmente seguro e apenas permite que o aplicativo altere configurações do sistema, como o modo escuro, nada mais. Desinstalar o aplicativo reverte totalmente o processo. Além disso, tanto o ${appName} quanto este site de configuração são de código aberto no github.com/xLexip.`,
 				howToGrantLine1: `Inicie a configuração no aplicativo ${appName}.`,
 				whyLabel: 'Por que isso é necessário?',
 			},

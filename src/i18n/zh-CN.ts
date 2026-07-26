@@ -19,7 +19,7 @@ export const zhCN = {
 				general:
 					`请在您的 Android 设备上安装 ${appName}，并在另一台设备上打开此网站。`,
 				explanation:
-					"Android 限制应用自动切换深色模式等系统设置。要解锁此功能，您需要授予一次性权限。此操作安全、可逆，且不会授权访问您的数据。",
+					`Android 限制应用自动切换深色模式等系统设置。要允许此操作，您需要向应用授予一次性权限 WRITE_SECURE_SETTINGS（例如通过此网站）。这完全安全，仅允许应用更改深色模式等系统设置，无其他操作。卸载应用可完全还原此过程。此外，${appName} 和此设置网站均在 github.com/xLexip 上开源。`,
 				howToGrantLine1: `在 ${appName} 应用中开始设置。`,
 				whyLabel: '为什么需要此步骤？',
 			},
