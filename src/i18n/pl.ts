@@ -19,7 +19,7 @@ export const pl = {
 				general:
 					`Zainstaluj ${appName} na swoim urządzeniu z Androidem i otwórz tę stronę na innym urządzeniu.`,
 				explanation:
-					"Android ogranicza aplikacjom możliwość automatycznego przełączania ustawień systemowych, takich jak tryb ciemny. Aby odblokować tę funkcję, musisz jednorazowo przyznać uprawnienie. Jest to bezpieczne, odwracalne i nie daje dostępu do Twoich danych.",
+					`Android ogranicza aplikacjom możliwość automatycznego przełączania ustawień systemowych, takich jak tryb ciemny. Aby na to zezwolić, musisz jednorazowo przyznać aplikacji uprawnienie WRITE_SECURE_SETTINGS, np. za pomocą tej strony internetowej. Jest to całkowicie bezpieczne i umożliwia aplikacji jedynie zmianę ustawień systemowych, takich jak tryb ciemny, nic więcej. Odinstalowanie aplikacji całkowicie cofa ten proces. Ponadto zarówno ${appName}, jak i ta strona konfiguracji są otwarte pod adresem github.com/xLexip.`,
 				howToGrantLine1: `Rozpocznij konfigurację w aplikacji ${appName}.`,
 				whyLabel: 'Dlaczego jest to wymagane?',
 			},

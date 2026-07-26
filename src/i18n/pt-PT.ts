@@ -19,7 +19,7 @@ export const ptPT = {
 				general:
 					`Instale a ${appName} no seu dispositivo Android e abra este site noutro dispositivo.`,
 				explanation:
-					"O Android impede que as aplicações alterem definições de sistema, como o Modo Escuro, automaticamente. Para desbloquear esta funcionalidade, precisa de conceder uma permissão única. Isto é seguro, reversível e não concede acesso aos seus dados.",
+					`O Android impede que as aplicações alterem definições do sistema, como o Modo Escuro, automaticamente. Para permitir isto, precisa de conceder a permissão única WRITE_SECURE_SETTINGS à aplicação, por exemplo, através deste site. Isto é totalmente seguro e apenas permite que a aplicação altere definições do sistema, como o modo escuro, mais nada. Desinstalar a aplicação reverte totalmente o processo. Além disso, tanto a ${appName} como este site de configuração são de código aberto em github.com/xLexip.`,
 				howToGrantLine1: `Inicie a configuração na aplicação ${appName}.`,
 				whyLabel: 'Porque é que isto é necessário?',
 			},

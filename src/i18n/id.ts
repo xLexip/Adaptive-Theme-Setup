@@ -19,7 +19,7 @@ export const id = {
 				general:
 					`Instal ${appName} di perangkat Android Anda dan buka situs web ini di perangkat lain.`,
 				explanation:
-					"Android membatasi aplikasi untuk mengubah pengaturan sistem seperti Mode Gelap secara otomatis. Untuk membuka fitur ini, Anda perlu memberikan izin satu kali. Ini aman, dapat dibatalkan, dan tidak memberikan akses ke data Anda.",
+					`Android membatasi aplikasi untuk mengubah pengaturan sistem seperti Mode Gelap secara otomatis. Untuk mengizinkannya, Anda perlu memberikan izin satu kali WRITE_SECURE_SETTINGS ke aplikasi, misalnya melalui situs web ini. Ini sepenuhnya aman dan hanya mengizinkan aplikasi untuk mengubah pengaturan sistem seperti mode gelap, tidak ada yang lain. Meng-uninstal aplikasi akan sepenuhnya mengembalikan proses ini. Selain itu, ${appName} dan situs web penyiapan ini bersifat sumber terbuka di github.com/xLexip.`,
 				howToGrantLine1: `Mulai penyiapan di aplikasi ${appName}.`,
 				whyLabel: 'Mengapa ini diperlukan?',
 			},

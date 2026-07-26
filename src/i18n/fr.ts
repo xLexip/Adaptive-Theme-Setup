@@ -19,7 +19,7 @@ export const fr = {
 				general:
 					`Installez ${appName} sur votre appareil Android et ouvrez ce site web sur un autre appareil.`,
 				explanation:
-					"Android empêche les applications de modifier automatiquement les paramètres système comme le mode sombre. Pour débloquer cette fonctionnalité, vous devez accorder une autorisation unique. C'est sûr, réversible et ne donne pas accès à vos données.",
+					`Android empêche les applications de modifier automatiquement les paramètres système comme le mode sombre. Pour l'autoriser, vous devez accorder l'autorisation unique WRITE_SECURE_SETTINGS à l'application, par exemple via ce site web. C'est totalement sûr et permet uniquement à l'application de modifier des paramètres système comme le mode sombre, rien d'autre. La désinstallation de l'application annule entièrement le processus. De plus, ${appName} et ce site web de configuration sont tous deux open source sur github.com/xLexip.`,
 				howToGrantLine1: `Commencez la configuration dans l'application ${appName}.`,
 				whyLabel: 'Pourquoi est-ce nécessaire ?',
 			},

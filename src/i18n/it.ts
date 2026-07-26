@@ -19,7 +19,7 @@ export const it = {
 				general:
 					`Installa ${appName} sul tuo dispositivo Android e apri questo sito web su un altro dispositivo.`,
 				explanation:
-					"Android impedisce alle app di modificare automaticamente le impostazioni di sistema come il Tema scuro. Per sbloccare questa funzione, devi concedere un'autorizzazione una tantum. È un'operazione sicura, reversibile e non concede l'accesso ai tuoi dati.",
+					`Android impedisce alle app di modificare automaticamente le impostazioni di sistema come la Modalità scura. Per consentirlo, è necessario concedere all'app l'autorizzazione una tantum WRITE_SECURE_SETTINGS, ad esempio tramite questo sito web. È un'operazione completamente sicura che consente all'app solo di modificare le impostazioni di sistema come la modalità scura, niente altro. La disinstallazione dell'app ripristina completamente il processo. Inoltre, sia ${appName} che questo sito web di configurazione sono open source su github.com/xLexip.`,
 				howToGrantLine1: `Inizia la configurazione nell'app ${appName}.`,
 				whyLabel: 'Perché è necessario?',
 			},

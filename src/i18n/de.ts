@@ -19,7 +19,7 @@ export const de = {
 				general:
 					`Installiere ${appName} auf deinem Android-Gerät und öffne diese Webseite auf einem anderen Gerät.`,
 				explanation:
-					"Android hindert Apps daran, Systemeinstellungen wie den Dark Mode automatisch umzuschalten. Um diese Funktion freizuschalten, musst du eine einmalige Berechtigung erteilen. Dies ist sicher, umkehrbar und gewährt keinen Zugriff auf deine Daten.",
+					`Android hindert Apps daran, Systemeinstellungen wie den Dark Mode automatisch umzuschalten. Um dies zu erlauben, musst du der App einmalig die Berechtigung WRITE_SECURE_SETTINGS erteilen, z. B. über diese Webseite. Dies ist völlig sicher und ermöglicht der App lediglich das Ändern von Systemeinstellungen wie dem Dark Mode, sonst nichts. Das Deinstallieren der App macht den Vorgang vollständig rückgängig. Zudem sind sowohl ${appName} als auch diese Einrichtungs-Webseite Open-Source unter github.com/xLexip.`,
 				howToGrantLine1: `Starte die Einrichtung in der ${appName} App.`,
 				whyLabel: 'Warum ist das erforderlich?',
 			},

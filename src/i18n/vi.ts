@@ -19,7 +19,7 @@ export const vi = {
 				general:
 					`Cài đặt ${appName} trên thiết bị Android của bạn và mở trang web này trên một thiết bị khác.`,
 				explanation:
-					"Android hạn chế các ứng dụng tự động thay đổi cài đặt hệ thống như Chế độ tối. Để mở khóa tính năng này, bạn cần cấp quyền một lần. Việc này an toàn, có thể hoàn tác và không cấp quyền truy cập vào dữ liệu của bạn.",
+					`Android hạn chế các ứng dụng tự động thay đổi cài đặt hệ thống như Chế độ tối. Để cho phép điều này, bạn cần cấp quyền một lần WRITE_SECURE_SETTINGS cho ứng dụng, ví dụ bằng trang web này. Việc này hoàn toàn an toàn và chỉ cho phép ứng dụng thay đổi các cài đặt hệ thống như chế độ tối, không có gì khác. Việc gỡ cài đặt ứng dụng sẽ hoàn tất hoàn tác quá trình. Ngoài ra, cả ${appName} và trang web thiết lập này đều là mã nguồn mở tại github.com/xLexip.`,
 				howToGrantLine1: `Bắt đầu thiết lập trong ứng dụng ${appName}.`,
 				whyLabel: 'Tại sao điều này lại cần thiết?',
 			},

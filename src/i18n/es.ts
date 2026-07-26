@@ -19,7 +19,7 @@ export const es = {
 				general:
 					`Instala ${appName} en tu dispositivo Android y abre este sitio web en otro dispositivo.`,
 				explanation:
-					"Android impide que las aplicaciones cambien ajustes del sistema, como el Modo oscuro, automáticamente. Para desbloquear esta función, necesitas conceder un permiso especial una sola vez. Esto es seguro, reversible y no otorga acceso a tus datos.",
+					`Android impide que las aplicaciones cambien automáticamente ajustes del sistema como el Modo oscuro. Para permitirlo, debes conceder el permiso único WRITE_SECURE_SETTINGS a la aplicación, por ejemplo, mediante este sitio web. Esto es totalmente seguro y solo permite que la aplicación cambie ajustes del sistema como el modo oscuro, nada más. Desinstalar la aplicación revierte completamente el proceso. Además, tanto ${appName} como este sitio web de configuración son de código abierto en github.com/xLexip.`,
 				howToGrantLine1: `Inicia la configuración en la aplicación ${appName}.`,
 				whyLabel: '¿Por qué es necesario?',
 			},
